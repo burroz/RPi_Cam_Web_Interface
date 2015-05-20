@@ -1,0 +1,1 @@
+This is a fork made out of https://github.com/silvanmelchior/RPi_Cam_Web_Interface to improve the web interface to allow easier styling - this fork might also start implementing motion detection via ir-module instead of motion on screen
