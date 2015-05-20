@@ -1,6 +1,8 @@
 <?php
    //Local define of base diretory for routines here
-   define('LBASE_DIR',dirname(__FILE__));
+   #define('LBASE_DIR',dirname(__FILE__));
+   define('LBASE_DIR',BASE_DIR);
+
    //Global defines and utility functions
    // version string
    define('APP_VERSION', 'v6.0.1');
@@ -21,10 +23,10 @@
    define('CAM_STRING', APP_NAME . " " . APP_VERSION . ": " . CAM_NAME . '@' . HOST_NAME);
 
    // file where default settings changes are stored
-   define('CONFIG_FILE1', 'raspimjpeg');
+   define('CONFIG_FILE1', LBASE_DIR . '/raspimjpeg');
 
    // file where user specific settings changes are stored
-   define('CONFIG_FILE2', 'uconfig');
+   define('CONFIG_FILE2', LBASE_DIR . '/uconfig');
 
    // file where user specific settings changes are stored
    define('MEDIA_PATH', 'media');

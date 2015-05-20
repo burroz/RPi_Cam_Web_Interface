@@ -1,362 +1,262 @@
 <?php
-   define('BASE_DIR', dirname(__FILE__));
-   require_once(BASE_DIR.'/config.php');
-  
-   //Text labels here
-   define('BTN_DOWNLOAD', 'Download');
-   define('BTN_DELETE', 'Delete');
-   define('BTN_CONVERT', 'Start Convert');
-   define('BTN_DELETEALL', 'Delete All');
-   define('BTN_DELETESEL', 'Delete Sel');
-   define('BTN_SELECTALL', 'Select All');
-   define('BTN_SELECTNONE', 'Select None');
-   define('BTN_GETZIP', 'Get Zip');
-   define('BTN_UPDATESIZES', 'Update Sizes');
-   define('TXT_PREVIEW', 'Preview');
-   define('TXT_THUMB', 'Thumb');
-   define('TXT_FILES', 'Files');
-   
-   define('CONVERT_CMD', 'convertCmd.txt');
-   
-   
-   //Set size defaults and try to get from cookies
-   $previewSize = 640;
-   $thumbSize = 96;
-   if(isset($_COOKIE["previewSize"])) {
-      $previewSize = $_COOKIE["previewSize"];
-   }
-   if(isset($_COOKIE["thumbSize"])) {
-      $thumbSize = $_COOKIE["thumbSize"];
-   }
-   $dSelect = "";
-   $pFile = "";
-   $tFile = "";
-   $debugString = "";
-   
-   if(isset($_GET['preview'])) {
-      $tFile = $_GET['preview'];
-      $pFile = dataFilename($tFile);
-   }
+	define('BASE_DIR', dirname(__FILE__));
+	define('NAV_POS','preview');
+	include BASE_DIR . '/_includes/_applicationhelper.php';
+	include BASE_DIR . '/_handlers/_preview.php';
+	include BASE_DIR .'/_partials/_header.php';
 
-   if (isset($_GET['zipprogress'])) {
-      $zipname = $_GET['zipprogress'];
-      $ret = @file_get_contents("$zipname.count");
-      if ($ret) {
-         echo $ret;
-      }
-      else {
-         echo "complete";
-      }
-      return;
-   }
-
-   $zipname = false;
-   //Process any POST data
-   // 1 file based commands
-   if (isset($_POST['zipdownload'])) {
-      $zipname = $_POST['zipdownload'];
-      header("Content-Type: application/zip");
-      header("Content-Disposition: attachment; filename=\"".substr($zipname,strlen(MEDIA_PATH)+1)."\"");
-      readfile("$zipname");
-      if(file_exists($zipname)){
-          unlink($zipname);
-      }                  
-      return;
-   }
-   else if (isset($_POST['delete1'])) {
-      deleteFile($_POST['delete1']);
-      maintainFolders(MEDIA_PATH, false, false);
-   } else if (isset($_POST['convert'])) {
-      $tFile = $_POST['convert'];
-      startVideoConvert($tFile);
-      $tFile = "";
-   } else if (isset($_POST['download1'])) {
-      $dFile = $_POST['download1'];
-      if(getFileType($dFile) != 't') {
-         $dxFile = dataFilename($dFile);
-         if(dataFileext($dFile) == "jpg") {
-            header("Content-Type: image/jpeg");
-         } else {
-            header("Content-Type: video/mp4");
-         }
-         header("Content-Disposition: attachment; filename=\"" . dataFilename($dFile) . "\"");
-         readfile(MEDIA_PATH . "/$dxFile");
-         return;
-      } else {
-         $zipname = getZip(array($dFile));
-      }
-   } else if (isset($_POST['action'])){
-      //global commands
-      switch($_POST['action']) {
-         case 'deleteAll':
-            maintainFolders(MEDIA_PATH, true, true);
-            break;
-         case 'selectAll':
-            $dSelect = "checked";
-            break;
-         case 'selectNone':
-            $dSelect = "";
-            break;
-         case 'deleteSel':
-            if(!empty($_POST['check_list'])) {
-               foreach($_POST['check_list'] as $check) {
-                  deleteFile($check);
-               }
-            }        
-            maintainFolders(MEDIA_PATH, false, false);
-            break;
-         case 'updateSizes':
-            if(!empty($_POST['previewSize'])) {
-               $previewSize = $_POST['previewSize'];
-               if ($previewSize < 100 || $previewSize > 1920) $previewSize = 640;
-               setcookie("previewSize", $previewSize, time() + (86400 * 365), "/");
-            }        
-            if(!empty($_POST['thumbSize'])) {
-               $thumbSize = $_POST['thumbSize'];
-               if ($thumbSize < 32 || $thumbSize > 320) $thumbSize = 96;
-               setcookie("thumbSize", $thumbSize, time() + (86400 * 365), "/");
-            }        
-            break;
-         case 'zipSel':
-            if (!empty($_POST['check_list'])) {
-               $zipname = getZip($_POST['check_list']);
-            }
-            break;
-      }
-   }
-  
-   function getZip($files) {
-      $zipname = MEDIA_PATH . '/cam_' . date("Ymd_His") . '.zip';
-      writeLog("Making zip $zipname");
-      $zipfiles = fopen($zipname.".files", "w");
-      foreach ($files as $file) {
-         if (getFileType($file) == 't') {
-            $lapses = findLapseFiles($file);
-            if (!empty($lapses)) {
-               foreach($lapses as $lapse) {
-                  fprintf($zipfiles, "$lapse\n");
-               }
-            }
-         } else {
-            $base = dataFilename($file);
-            if (file_exists(MEDIA_PATH . "/$base")) {
-               fprintf($zipfiles, MEDIA_PATH . "/$base\n");
-            }
-         }
-      }
-      fclose($zipfiles);
-      file_put_contents("$zipname.count", "0/100");
-      exec("./raspizip.sh $zipname $zipname.files > /dev/null &");
-      return $zipname;
-   }
-
-   function startVideoConvert($bFile) {
-      global $debugString;
-      $tFiles = findLapseFiles($bFile);
-      $tmp = BASE_DIR . '/' . MEDIA_PATH . '/' . getFileType($bFile) . getFileIndex($bFile);
-      if (!file_exists($tmp)) {
-         mkdir($tmp, 0777, true);
-      }
-      $i= 1;
-      foreach($tFiles as $tFile) {
-         copy($tFile, $tmp . '/' . sprintf('i_%05d', $i) . '.jpg');
-         $i++;
-      }
-      $vFile = substr(dataFilename($bFile), 0, -3) . 'mp4';
-      $cmd = $_POST['convertCmd'];
-      $fp = fopen(BASE_DIR . '/' . CONVERT_CMD, 'w');
-      fwrite($fp, $cmd);
-      fclose($fp);
-      $cmd = "(" . str_replace("i_%05d", "$tmp/i_%05d", $cmd) . ' ' . BASE_DIR . '/' . MEDIA_PATH . "/$vFile ; rm -rf $tmp;) >/dev/null 2>&1 &";
-      writeLog("start lapse convert:$cmd");
-      system($cmd);
-      copy(MEDIA_PATH . "/$bFile", MEDIA_PATH . '/' . $vFile . '.v' . getFileIndex($bFile) .THUMBNAIL_EXT);
-      writeLog("Convert finished");
-   }
-
-
-   // function to deletes files and folders recursively
-   // $deleteMainFiles true r false to delete files from the top level folder
-   // $deleteSubFiles true or false to delete files from subfolders
-   // Empty subfolders get removed.
-   // $root true or false. If true (default) then top dir not removed
-   function maintainFolders($path, $deleteMainFiles, $deleteSubFiles, $root = true) {
-      $empty=true;
-      foreach (glob("$path/*") as $file) {
-         if (is_dir($file)) {
-            if (!maintainFolders($file, $deleteMainFiles, $deleteSubFiles, false)) $empty=false;
-         }  else {
-            if (($deleteSubFiles && !$root) || ($deleteMainFiles && $root)) {
-              unlink($file);
-            } else {
-               $empty=false;
-            }
-         }
-      }
-      return $empty && !$root && rmdir($path);
-   }
-   
-   //function to draw 1 file on the page
-   function drawFile($f, $ts, $sel) {
-      $fType = getFileType($f);
-      $rFile = dataFilename($f);
-      $fNumber = getFileIndex($f);
-      $lapseCount = "";
-      switch ($fType) {
-         case 'v': $fIcon = 'video.png'; break;
-         case 't': 
-            $fIcon = 'timelapse.png';
-            $lapseCount = '(' . count(findLapseFiles($f)). ')';
-            break;
-         case 'i': $fIcon = 'image.png'; break;
-         default : $fIcon = 'image.png'; break;
-      }
-      $duration ='';
-      if (file_exists(MEDIA_PATH . "/$rFile")) {
-         $fsz = round ((filesize(MEDIA_PATH . "/$rFile")) / 1024);
-         $fModTime = filemtime(MEDIA_PATH . "/$rFile");
-         if ($fType == 'v') {
-            $duration = ($fModTime - filemtime(MEDIA_PATH . "/$f")) . 's';
-         }
-      } else {
-         $fsz = 0;
-         $fModTime = filemtime(MEDIA_PATH . "/$f");
-      }
-      $fDate = @date('Y-m-d', $fModTime);
-      $fTime = @date('H:i:s', $fModTime);
-      $fWidth = max($ts + 4, 140);
-      echo "<fieldset class='fileicon' style='width:" . $fWidth . "px;'>";
-      echo "<legend class='fileicon'>";
-      echo "<button type='submit' name='delete1' value='$f' class='fileicondelete' style='background-image:url(delete.png);
-'></button>";
-      echo "&nbsp;&nbsp;$fNumber&nbsp;";
-      echo "<img src='$fIcon' style='width:24px'/>";
-      echo "<input type='checkbox' name='check_list[]' $sel value='$f' style='float:right;'/>";
-      echo "</legend>";
-      if ($fsz > 0) echo "$fsz Kb $lapseCount $duration"; else echo 'Busy';
-      echo "<br>$fDate<br>$fTime<br>";
-      if ($fsz > 0) echo "<a title='$rFile' href='preview.php?preview=$f'>";
-      echo "<img src='" . MEDIA_PATH . "/$f' style='width:" . $ts . "px'/>";
-      if ($fsz > 0) echo "</a>";
-      echo "</fieldset> ";
-   }
-   
-   function getThumbnails() {
-      $files = scandir(MEDIA_PATH);
-      $thumbnails = array();
-      foreach($files as $file) {
-         if($file != '.' && $file != '..' && isThumbnail($file)) {
-            $thumbnails[] = $file;
-         } 
-      }
-      return $thumbnails;   
-   }
-   
-   function diskUsage() {
-      //Get disk data
-      $totalSize = round(disk_total_space(BASE_DIR . '/' . MEDIA_PATH) / 1048576); //MB
-      $currentAvailable = round(disk_free_space(BASE_DIR . '/' . MEDIA_PATH) / 1048576); //MB
-      $percentUsed = round(($totalSize - $currentAvailable)/$totalSize * 100, 1);
-      if ($percentUsed > 98)
-         $colour = 'Red';
-      else if ($percentUsed > 90)
-         $colour = 'Orange';
-      else
-         $colour = 'LightGreen';
-      echo '<div style="margin-left:5px;position:relative;width:300px;border:1px solid #ccc;">';
-         echo "<span>Used:$percentUsed%  Total:$totalSize(MB)</span>";
-         echo "<div style='z-index:-1;position:absolute;top:0px;width:$percentUsed%;background-color:$colour;'>&nbsp;</div>";
-      echo '</div>';
-   }
-   
 ?>
-<!DOCTYPE html>
-<html>
-   <head>
-      <meta name="viewport" content="width=550, initial-scale=1">
-      <title>RPi Cam Download</title>
-      <link rel="stylesheet" href="css/style_minified.css" />
-      <link rel="stylesheet" href="css/preview.css" />
-      <link rel="stylesheet" href="css/extrastyle.css" />
-      <script src="js/style_minified.js"></script>
-      <script src="js/script.js"></script>
-   </head>
-   <body>
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-         <div class="container">
-            <div class="navbar-header">
-               <a class="navbar-brand" href="<?php echo ROOT_PHP; ?>"><span class="glyphicon glyphicon-chevron-left"></span>Back - <?php echo CAM_STRING; ?></a>
-            </div>
-         </div>
-      </div>
-    
-      <div id="progress" style="text-align:center;margin-left:20px;width:500px;border:1px solid #ccc;">&nbsp;</div>
-    
-      <div class="container-fluid">
-      <form action="preview.php" method="POST">
-      <?php
-         $thumbnails = getThumbnails();
-         if ($pFile != "") {
-            $pIndex = array_search($tFile, $thumbnails);
-            echo "<h1>" . TXT_PREVIEW . ":  " . getFileType($tFile) . getFileIndex($tFile);
-            if ($pIndex > 0)
-               $attr = 'onclick="location.href=\'preview.php?preview=' . $thumbnails[$pIndex-1] . '\'"';
-            else
-               $attr = 'disabled';
-            echo "&nbsp;&nbsp;<input type='button' value='&larr;' class='btn btn-primary' name='prev' $attr >";
-            if (($pIndex+1) < count($thumbnails))
-               $attr = 'onclick="location.href=\'preview.php?preview=' . $thumbnails[$pIndex+1] . '\'"';
-            else
-               $attr = 'disabled';
-            echo "&nbsp;&nbsp;<input type='button' value='&rarr;' class='btn btn-primary' name='next' $attr>";
-            echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='download1' value='$tFile'>" . BTN_DOWNLOAD . "</button>";
-            echo "&nbsp;<button class='btn btn-danger' type='submit' name='delete1' value='$tFile'>" . BTN_DELETE . "</button>";
-            if(getFileType($tFile) == "t") {
-               $convertCmd = file_get_contents(BASE_DIR . '/' . CONVERT_CMD);
-               echo "&nbsp;<button class='btn btn-primary' type='submit' name='convert' value='$tFile'>" . BTN_CONVERT . "</button>";
-               echo "<br></h1>Convert using: <input type='text' size=72 name = 'convertCmd' id='convertCmd' value='$convertCmd'><br><br>";
-            } else {
-               echo "<br></h1>";
-            }
-            if(substr($pFile, -3) == "jpg") {
-               echo "<a href='" . MEDIA_PATH . "/$tFile' target='_blank'><img src='" . MEDIA_PATH . "/$pFile' width='" . $previewSize . "px'></a>";
-            } else {
-               echo "<video width='" . $previewSize . "px' controls><source src='" . MEDIA_PATH . "/$pFile' type='video/mp4'>Your browser does not support the video tag.</video>";
-            }
-         }
-         echo "<h1>" . TXT_FILES . "&nbsp;&nbsp;";
-         echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='action' value='selectNone'>" . BTN_SELECTNONE . "</button>";
-         echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='action' value='selectAll'>" . BTN_SELECTALL . "</button>";
-         echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='action' value='zipSel'>" . BTN_GETZIP . "</button>";
-         echo "&nbsp;&nbsp;<button class='btn btn-danger' type='submit' name='action' value='deleteSel' onclick=\"return confirm('Are you sure?');\">" . BTN_DELETESEL . "</button>";
-         echo "&nbsp;&nbsp;<button class='btn btn-danger' type='submit' name='action' value='deleteAll' onclick=\"return confirm('Are you sure?');\">" . BTN_DELETEALL . "</button>";
-         echo "</h1>";
-         diskUsage();
-         if ($debugString !="") echo "$debugString<br>";
-         if(count($thumbnails) == 0) echo "<p>No videos/images saved</p>";
-         else {
-            foreach($thumbnails as $file) {
-              drawFile($file, $thumbSize, $dSelect);
-            }
-         }
-         echo "<p><p>" . TXT_PREVIEW . " <input type='text' size='4' name='previewSize' value='$previewSize'>";
-         echo "&nbsp;&nbsp;" . TXT_THUMB . " <input type='text' size='3' name='thumbSize' value='$thumbSize'>";
-         echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='action' value='updateSizes'>" . BTN_UPDATESIZES . "</button>";
-      ?>
-      </form>
-      
-      <form id="zipform" method="post" action="preview.php" style="display:none;">
-         <input id="zipdownload" type="hidden" name="zipdownload"/>
-      </form>
-      
-      </div>
-      
-      <?php 
-      if ($zipname) {
-         echo '<script language="javascript">get_zip_progress("' . $zipname . '");</script>';
-      } else {
-         echo '<script language="javascript">document.getElementById("progress").style.display="none";</script>';
-      }
-      ?>
-   </body>
-</html>
+
+<div class="container">
+	<form action="preview.php" method="POST">
+	<div class="row">
+		<div class="col-md-6">
+			<!-- <h3>Actions</h3> -->
+			<div class="btn-group" role="group">
+				<button type="submit" name="action" value="selectNone" class="btn btn-default" <?php if (!$imagesAvailable) { echo 'disabled="disabled"'; } ?>>
+					<?php echo BTN_SELECTNONE; ?>
+				</button>
+				<button type="submit" name="action" value="selectAll" class="btn btn-default" <?php if (!$imagesAvailable) { echo 'disabled="disabled"'; } ?>>
+					<?php echo BTN_SELECTALL; ?>
+				</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button type="submit" name="action" value="zipSel" class="btn btn-default" <?php if (!$imagesAvailable) { echo 'disabled="disabled"'; } ?>>
+					<?php echo BTN_GETZIP; ?>
+				</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button type="submit" name="action" value="deleteSel" class="btn btn-danger" onclick="return confirm('Are you sure?');" <?php if (!$imagesAvailable) { echo 'disabled="disabled"'; } ?>>
+					<?php echo BTN_DELETESEL; ?>
+				</button>
+				<button type="submit" name="action" value="deleteAll" class="btn btn-danger" onclick="return confirm('Are you sure?');" <?php if (!$imagesAvailable) { echo 'disabled="disabled"'; } ?>>
+					<?php echo BTN_DELETEALL; ?>
+				</button>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<?php
+				$diskUsage = diskUsage();
+				$useColor = "success";
+				if ($diskUsage['usedPercent'] >= 90) {
+				   $useColor = "danger";
+				} else if ($diskUsage['usedPercent'] >= 75) {
+				   $useColor = "warning";
+				}
+				$writeRight = true;
+				if ($diskUsage['usedPercent'] > 50) {
+					$writeRight = false;
+				}
+				$usedLabel = round($diskUsage['usedPercent']) . '%';
+				$freeLabel = round($diskUsage['currentAvailablePercent']) . '%';
+				$writtenLabel = "Used " . FileSizeConvert($diskUsage['used']) . " of " . FileSizeConvert($diskUsage['total']);
+				if ($diskUsage['usedPercent'] >= 50) {
+					$usedLabel = $writtenLabel;
+				} else {
+					$freeLabel = $writtenLabel;					
+				}
+			?>
+			<p>
+				<div class="progress">
+					<div class="progress-bar progress-bar-primary progress-bar-striped" style="width:<?php echo round($diskUsage['usedPercent']); ?>%;">
+						<?php  echo $usedLabel; ?>
+					</div>
+					<div class="progress-bar progress-bar-<?php echo $useColor; ?> progress-bar-striped" style="width:<?php echo round($diskUsage['currentAvailablePercent']); ?>%;">
+						<?php  echo $freeLabel; ?>
+					</div>
+				</div>
+			</p>
+		</div>
+		<div class="col-md-2">
+			<div class="btn-group" role="group">
+				<button type="submit" name="action" value="resizeThSizeMinus" class="btn btn-default">
+					<i class="fa fa-minus-square"></i>
+				</button>
+				<button type="submit" name="action" value="resizeThSizeReset" class="btn btn-default">
+					<i class="fa fa-picture-o"></i>
+				</button>
+				<button type="submit" name="action" value="resizeThSizePlus" class="btn btn-default">
+					<i class="fa fa-plus-square"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<!-- preview -->
+		<?php
+			#if ($pFile != "") {
+			#	$pIndex = array_search($tFile, $thumbnails);
+			#	echo "<h1>" . TXT_PREVIEW . ":  " . getFileType($tFile) . getFileIndex($tFile);
+			#	if ($pIndex > 0) {
+			#		$attr = 'onclick="location.href=\'preview.php?preview=' . $thumbnails[$pIndex-1] . '\'"';
+			#	} else {
+			#		$attr = 'disabled';
+			#	}
+			#	echo "&nbsp;&nbsp;<input type='button' value='&larr;' class='btn btn-primary' name='prev' $attr >";
+			#	if (($pIndex+1) < count($thumbnails)) {
+			#		$attr = 'onclick="location.href=\'preview.php?preview=' . $thumbnails[$pIndex+1] . '\'"';
+			#	} else {
+			#		$attr = 'disabled';
+			#	}
+			#	echo "&nbsp;&nbsp;<input type='button' value='&rarr;' class='btn btn-primary' name='next' $attr>";
+			#	echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='download1' value='$tFile'>" . BTN_DOWNLOAD . "</button>";
+			#	echo "&nbsp;<button class='btn btn-danger' type='submit' name='delete1' value='$tFile'>" . BTN_DELETE . "</button>";
+			#	if(getFileType($tFile) == "t") {
+			#		$convertCmd = file_get_contents(BASE_DIR . '/' . CONVERT_CMD);
+			#		echo "&nbsp;<button class='btn btn-primary' type='submit' name='convert' value='$tFile'>" . BTN_CONVERT . "</button>";
+			#		echo "<br></h1>Convert using: <input type='text' size=72 name = 'convertCmd' id='convertCmd' value='$convertCmd'><br><br>";
+			#	} else {
+			#		echo "<br></h1>";
+			#	}
+			#	if(substr($pFile, -3) == "jpg") {
+			#		echo "<a href='" . MEDIA_PATH . "/$tFile' target='_blank'><img src='" . MEDIA_PATH . "/$pFile' width='" . $previewSize . "px'></a>";
+			#	} else {
+			#		echo "<video width='" . $previewSize . "px' controls><source src='" . MEDIA_PATH . "/$pFile' type='video/mp4'>Your browser does not support the video tag.</video>";
+			#	}
+			#}
+			#if ($debugString !="") {
+			#	echo "$debugString<br>";
+			#}
+		?>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<?php
+				#if (count($thumbnails) == 0) {
+				#	echo "<p>No videos/images saved</p>";
+				#} else {
+				#	#foreach($thumbnails as $file) {
+				#	#	drawFile($file, $thumbSize, $dSelect);
+				#	#}
+				#}
+				if ($imagesAvailable) {
+					foreach($thumbnails as $file) {
+
+						$fType = getFileType($file);
+						$rFile = dataFilename($file);
+						$fNumber = getFileIndex($file);
+						$lapseCount = "";
+
+						switch ($fType) {
+							case 'v': $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x"></i></span>'; break;
+							case 't': 
+								$fIcon = '<span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x fa-inverse"></i></span>';
+								$lapseCount = '(' . count(findLapseFiles($file)). ')';
+								break;
+							case 'i': $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
+							default : $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
+						}
+
+						$duration ='';
+
+						if (file_exists(MEDIA_PATH . "/$rFile")) {
+							$fsz = filesize(MEDIA_PATH . "/$rFile");
+							$fModTime = filemtime(MEDIA_PATH . "/$rFile");
+							if ($fType == 'v') {
+								$duration = ($fModTime - filemtime(MEDIA_PATH . "/$file")) . 's';
+							}
+						} else {
+							$fsz = 0;
+							$fModTime = filemtime(MEDIA_PATH . "/$file");
+						}
+
+						$fDate = @date('Y-m-d', $fModTime);
+						$fTime = @date('H:i:s', $fModTime);
+
+						switch ($thumbSize) {
+							case '3': $grid = 'col-sm-6 col-md-1'; break;
+							case '4': $grid = 'col-sm-6 col-md-2'; break;
+							case '5': $grid = 'col-sm-6 col-md-3'; break;
+							case '6': $grid = 'col-sm-6 col-md-4'; break;
+							case '7': $grid = 'col-sm-6 col-md-5'; break;
+							case '8': $grid = 'col-sm-6 col-md-6'; break;
+							default : $grid = 'col-sm-6 col-md-3'; break;
+						}
+
+						echo '<div class="' . $grid . '">';
+							echo '<div class="thumbnail">';
+								echo '<img src="' .  MEDIA_PATH . '/' . $file . '">';
+								echo '<div class="caption">';
+									echo '<h4>' . $fIcon . ' ' . $fNumber . '</h4>';
+									echo '<h5><small><i class="fa fa-calendar-o "></i> ' . $fDate . ' <i class="fa fa-clock-o"></i> ' . $fTime . '</small></h5>';
+	
+									if ($fsz > 0) {
+										$doBRs = 0;
+										if ($fsz > 0) {
+											echo '<i class="fa fa-floppy-o"></i> ' . FileSizeConvert($fsz) . '<br>';
+										} else {
+											$doBRs++;
+										}			
+										if (strlen($lapseCount) > 0) {
+											echo '<i class="fa fa-picture-o"></i> ' . $lapseCount . '<br>';	
+										} else {
+											$doBRs++;
+										}
+										if (strlen($duration) > 0) {
+											echo '<i class="fa fa-clock-o"></i> ' . secondsToTime($duration) . '<br>';
+										} else {
+											$doBRs++;
+										}
+										for ($i = 0; $i < $doBRs; $i++) {
+											echo '<br>';
+										}
+									} else {
+										echo '<i class="fa fa-square-o"></i> Busy<br><br><br>';
+									}
+	
+									echo '<p>';
+							
+										echo '<a href="preview.php?preview=' . $file . '" name="delete1" class="btn btn-default btn-xs" role="button"' . ((!($fsz > 0)) ? ' disabled="disabled"' : '') . '><i class="fa fa-eye"></i> View</a>';
+										echo ' ';
+										echo '<button type="submit" name="delete1" value="' . $file . '" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o"></i> Delete</button>';
+										echo ' ';
+										echo '<input type="checkbox" name="check_list[]" ' . $dSelect . 'value="' . $file . '" style="float:right;">';
+										
+									echo '</p>';
+	
+								echo '</div>';
+							echo '</div>';
+						echo '</div>';
+						
+					}
+				} else {
+					?>
+						<div class="alert alert-danger" role="alert">
+							<i class="fa fa-exclamation-circle"></i> A No videos/images available!
+						</div>				
+					<?php
+				}
+			?>
+		</div>
+	</div>
+	<div class="row">
+		<?php
+			echo "<p><p>" . TXT_PREVIEW . " <input type='text' size='4' name='previewSize' value='$previewSize'>";
+			echo "&nbsp;&nbsp;" . TXT_THUMB . " <input type='text' size='3' name='thumbSize' value='$thumbSize'>";
+			echo "&nbsp;&nbsp;<button class='btn btn-primary' type='submit' name='action' value='updateSizes'>" . BTN_UPDATESIZES . "</button>";
+		?>
+	</div>
+	</form>
+		<form id="zipform" method="post" action="preview.php" style="display:none;">
+			<input id="zipdownload" type="hidden" name="zipdownload"/>
+		</form>
+
+	<!--
+    <div class="row">
+		<div id="progress" style="text-align:center;margin-left:20px;width:500px;border:1px solid #ccc;">&nbsp;</div>
+    </div>
+    -->
+
+
+</div>
+
+			
+<?php 
+	if ($zipname) {
+		echo '<script language="javascript">get_zip_progress("' . $zipname . '");</script>';
+	} else {
+		echo '<script language="javascript">document.getElementById("progress").style.display="none";</script>';
+	}
+?>
+
+<?php include BASE_DIR . '/_partials/_footer.php'; ?>
