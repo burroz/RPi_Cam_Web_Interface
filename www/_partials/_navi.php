@@ -3,36 +3,19 @@
 	if (!defined('NAV_POS')) {
 		define('NAV_POS','index');
 	}
+	$systemButtons = '';
+	$systemButtons .= '<input id="toggle_stream" type="button" class="btn btn-primary" value="' . $streamButton . '" onclick="set_stream_mode(this.value);">';
+	$systemButtons .= '<input id="shutdown_button" type="button" value="shutdown system" onclick="sys_shutdown();" class="btn btn-danger">';
+	$systemButtons .= '<input id="reboot_button" type="button" value="reboot system" onclick="sys_reboot();" class="btn btn-danger">';
+	$systemButtons .= '<input id="reset_button" type="button" value="reset settings" onclick="send_cmd('rs 1');setTimeout(function(){location.reload(true);}, 1000);" class="btn btn-danger">';
 ?>
 <script>
 function testme() {
 	bootbox.dialog({
-		message: "I am a custom dialog",
-		title: "Custom title",
-		buttons: {
-			success: {
-				label: "Success!",
-				className: "btn-success",
-				callback: function() {
-					Example.show("great success");
-				}
-			},
-			danger: {
-				label: "Danger!",
-				className: "btn-danger",
-				callback: function() {
-					Example.show("uh oh, look out!");
-				}
-			},
-			main: {
-				label: "Click ME!",
-				className: "btn-primary",
-				callback: function() {
-					Example.show("Primary button");
-				}
-			}
-		}
+		title: "That html",
+		message: '<?php echo $systemButtons; ?>'
 	});
+
 }
 </script>
 <nav class="navbar navbar-default">
