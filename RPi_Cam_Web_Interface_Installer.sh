@@ -70,7 +70,8 @@ case "$1" in
 
   install)
         sudo killall raspimjpeg
-        git pull origin master
+        #git pull origin master
+        git pull
         sudo apt-get install -y apache2 php5 libapache2-mod-php5 gpac motion zip
 
         sudo mkdir -p /var/www/$rpicamdir/media
