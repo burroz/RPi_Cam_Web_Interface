@@ -1,4 +1,7 @@
+<!--
 <input id="toggle_display" type="button" class="btn btn-primary" value="<?php echo $toggleButton; ?>" style="position:absolute;top:60px;right:10px;" onclick="set_display(this.value);">
+-->
+
 <div class="row text-center liveimage">
 	<div><img id="mjpeg_dest" <?php if(file_exists("pipan_on")) echo "ontouchstart=\"pipan_start()\""; ?> onclick="toggle_fullscreen(this);" src="/loading.jpg"></div>
 	<div id="main-buttons" <?php echo $displayStyle; ?> >
