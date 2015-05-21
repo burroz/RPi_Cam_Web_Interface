@@ -21,7 +21,7 @@
         <li class="<? if (NAV_POS == "preview") { echo "active"; } ?>"><a href="preview.php">Downloads</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li class="dropdown <?php if (NAV_POS == "motion" || NAV_POS == "schedule" || NAV_POS == "camera") { echo 'active'; } ?>">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
 			<li class="<? if (NAV_POS == "motion") { echo "active"; } ?>"><a href="motion.php">Motion settings</a></li>
