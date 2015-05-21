@@ -14,7 +14,7 @@
 					echo '<li><a href="motion.php">Settings</a></li>';
 					echo '<li class="active">Motion</li>';
 					break;
-				case 'motion':
+				case 'schedule':
 					echo '<li><a href="index.php">Live</a></li>';
 					echo '<li><a href="motion.php">Settings</a></li>';
 					echo '<li class="active">Schedule</li>';
