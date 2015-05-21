@@ -1,4 +1,5 @@
-      <div class="container-fluid">
+
+<div class="row">
       <form action="motion.php" method="POST">
       <?php
       if ($debugString) echo $debugString . "<br>";

@@ -1,6 +1,6 @@
 <?php
 	if (!$cliCall) {
-		echo '<div class="container-fluid">';
+		echo '<div class="row">';
 		echo '<form action="schedule.php" method="POST">';
 		if ($debugString) echo $debugString . "<br>";
 		if ($showLog) {
