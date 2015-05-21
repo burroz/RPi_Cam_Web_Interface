@@ -1,11 +1,11 @@
-<div class="container">
-	<?php
-		include BASE_DIR .'/_partials/_header.php';
+<?php
+	include BASE_DIR .'/_partials/_header.php';
+	echo '<div class="container">';
 		if (defined('VIEW')) {
 			include BASE_DIR .'/_views/_' . VIEW . '.php';
 		} else {
 			echo "NO VIEW ERROR!";
 		}
-		include BASE_DIR . '/_partials/_footer.php';
-	?>
-</div>
+	echo '</div>';
+	include BASE_DIR . '/_partials/_footer.php';
+?>

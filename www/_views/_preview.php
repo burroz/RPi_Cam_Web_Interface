@@ -1,4 +1,4 @@
-<div class="row">
+
 	<form action="preview.php" method="POST">
 	<div class="row">
 		<div class="col-md-6">
@@ -239,7 +239,7 @@
     -->
 
 
-</div>
+
 
 			
 <?php 
