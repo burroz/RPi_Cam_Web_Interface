@@ -29,3 +29,5 @@
    <body onload="setTimeout('init(<?php echo "$mjpegmode, $video_fps, $divider" ?>);', 100);">
    
 	   <?php include BASE_DIR . '/_partials/_navi.php'; ?>
+	   
+		<?php include BASE_DIR . '/_partials/_breadcrumb.php'; ?>
