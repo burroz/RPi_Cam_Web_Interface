@@ -27,7 +27,7 @@
 			<li class="<? if (NAV_POS == "motion") { echo "active"; } ?>"><a href="motion.php">Motion settings</a></li>
     	    <li class="<? if (NAV_POS == "schedule") { echo "active"; } ?>" ><a href="schedule.php">Schedule settings</a></li>
             <li class="divider"></li>
-	        <li class="<? if (NAV_POS == "camera") { echo "active"; } ?>"><a href="#">Camera settings</a></li>
+	        <li class="<? if (NAV_POS == "camera") { echo "active"; } ?>"><a href="camera.php">Camera settings</a></li>
           </ul>
         </li>
 		<li class="<? if (NAV_POS == "system") { echo "active"; } ?>"><a href="#">System</a></li>

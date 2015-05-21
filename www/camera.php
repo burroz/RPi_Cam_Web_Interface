@@ -1,3 +1,11 @@
+<?php
+	define('BASE_DIR', dirname(__FILE__));
+	define('NAV_POS','camera');
+	include BASE_DIR . '/_includes/_applicationhelper.php';
+	include BASE_DIR . '/_handlers/_camera.php';
+	include BASE_DIR .'/_partials/_camera.php';
+?>
+
 <table class="settingsTable">
 	<tr>
 		<td>Resolutions:</td>
