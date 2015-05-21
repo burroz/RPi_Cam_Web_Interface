@@ -4,6 +4,37 @@
 		define('NAV_POS','index');
 	}
 ?>
+<script>
+function testme() {
+	bootbox.dialog({
+		message: "I am a custom dialog",
+		title: "Custom title",
+		buttons: {
+			success: {
+				label: "Success!",
+				className: "btn-success",
+				callback: function() {
+					Example.show("great success");
+				}
+			},
+			danger: {
+				label: "Danger!",
+				className: "btn-danger",
+				callback: function() {
+					Example.show("uh oh, look out!");
+				}
+			},
+			main: {
+				label: "Click ME!",
+				className: "btn-primary",
+				callback: function() {
+					Example.show("Primary button");
+				}
+			}
+		}
+	});
+}
+</script>
 <nav class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
@@ -28,7 +59,7 @@
 						<li class="<? if (NAV_POS == "camera") { echo "active"; } ?>"><a href="camera.php">Camera settings</a></li>
 					</ul>
 				</li>
-				<li class="<? if (NAV_POS == "system") { echo "active"; } ?>"><a href="#">System</a></li>
+				<li class="<? if (NAV_POS == "system") { echo "active"; } ?>"><a href="javascript:testme()" id="test">System</a></li>
 			</ul>
 		</div>
 	</div>
