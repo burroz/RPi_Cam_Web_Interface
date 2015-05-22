@@ -37,20 +37,20 @@ function send_cmd_temporaer() {
 			<ul class="nav navbar-nav">
 				<li class="<? if (NAV_POS == "index") { echo "active"; } ?>"><a href="index.php">Live view</a></li>
 				<li class="<? if (NAV_POS == "preview") { echo "active"; } ?>"><a href="preview.php">Downloads</a></li>
-				<li class="dropdown <?php if (NAV_POS == "motion" || NAV_POS == "schedule" || NAV_POS == "camera") { echo 'active'; } ?>">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li class="<? if (NAV_POS == "motion") { echo "active"; } ?>"><a href="motion.php">Motion settings</a></li>
-						<li class="<? if (NAV_POS == "schedule") { echo "active"; } ?>" ><a href="schedule.php">Schedule settings</a></li>
-						<li class="divider"></li>
-						<li class="<? if (NAV_POS == "camera") { echo "active"; } ?>"><a href="camera.php">Camera settings</a></li>
-					</ul>
-				</li>
 			</ul>
 			<?php
 				if (NAV_POS == "index") {
 					echo '<ul class="nav navbar-nav navbar-right">';
-					echo '<button type="submit" class="btn btn-info navbar-btn" onClick="showSystemControllerButtons()">System</button>';
+					echo '<li class="dropdown ' . ( (NAV_POS == "motion" || NAV_POS == "schedule" || NAV_POS == "camera") ? 'active' : '' ) . '">';
+					echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>';
+					echo '<ul class="dropdown-menu" role="menu">';
+					echo '<li class="' . ( (NAV_POS == "motion") ? "active" : '' ) . '"><a href="motion.php">Motion settings</a></li>';
+					echo '<li class="' . ( (NAV_POS == "schedule") ? "active" : '' ) . '" ><a href="schedule.php">Schedule settings</a></li>';
+					echo '<li class="divider"></li>';
+					echo '<li class="' . ( (NAV_POS == "camera") ? "active" : '' ) . '"><a href="camera.php">Camera settings</a></li>';
+					echo '</ul>';
+					echo '</li>';
+					echo '<li class="' . ( (NAV_POS == "system") ? 'active' : '') . '"><a href="javascript:showSystemControllerButtons()" id="test">System</a></li>';
 					echo '</ul>';
 				}
 			?>
