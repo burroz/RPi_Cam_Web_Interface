@@ -50,11 +50,8 @@ function send_cmd_temporaer() {
 			<?php
 				if (NAV_POS == "index") {
 					echo '<ul class="nav navbar-nav navbar-right">';
-					echo '<button type="submit" class="btn btn-default navbar-btn" onClick="showSystemControllerButtons()">System</button>';
+					echo '<button type="submit" class="btn btn-info navbar-btn" onClick="showSystemControllerButtons()">System</button>';
 					echo '</ul>';
-					#echo '';
-					#echo '<li class="' . ( (NAV_POS == "system") ? 'active' : '') . '"><a href="javascript:showSystemControllerButtons()" id="test">System</a></li>';
-					#echo '';
 				}
 			?>
 		</div>
