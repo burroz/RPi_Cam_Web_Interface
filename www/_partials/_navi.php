@@ -46,8 +46,17 @@ function send_cmd_temporaer() {
 						<li class="<? if (NAV_POS == "camera") { echo "active"; } ?>"><a href="camera.php">Camera settings</a></li>
 					</ul>
 				</li>
-				<li class="<? if (NAV_POS == "system") { echo "active"; } ?>"><a href="javascript:showSystemControllerButtons()" id="test">System</a></li>
 			</ul>
+			<?php
+				if (NAV_POS == "index") {
+					echo '<ul class="nav navbar-nav navbar-right">';
+					echo '<button type="submit" class="btn btn-default navbar-btn" onClick="showSystemControllerButtons()">System</button>';
+					echo '</ul>';
+					#echo '';
+					#echo '<li class="' . ( (NAV_POS == "system") ? 'active' : '') . '"><a href="javascript:showSystemControllerButtons()" id="test">System</a></li>';
+					#echo '';
+				}
+			?>
 		</div>
 	</div>
 </nav>
