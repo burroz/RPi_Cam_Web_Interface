@@ -6,15 +6,15 @@
 	$systemButtons = '';
 	$systemButtons .= '<div>';
 	$systemButtons .= '<input id="toggle_stream" type="button" class="btn btn-default btn-block" value="' . $streamButton . '" onclick="set_stream_mode(this.value);">';
-	$systemButtons .= '<input id="shutdown_button" type="button" value="shutdown system" onclick="sys_shutdown();" class="btn btn-danger">';
-	$systemButtons .= '<input id="reboot_button" type="button" value="reboot system" onclick="sys_reboot();" class="btn btn-warning">';
-	$systemButtons .= '<input id="reset_button" type="button" value="reset settings" onclick="send_cmd_temporaer();setTimeout(function(){location.reload(true);}, 1000);" class="btn btn-danger">';
+	$systemButtons .= '<input id="shutdown_button" type="button" value="shutdown system" onclick="sys_shutdown();" class="btn btn-danger btn-block">';
+	$systemButtons .= '<input id="reboot_button" type="button" value="reboot system" onclick="sys_reboot();" class="btn btn-warning btn-block">';
+	$systemButtons .= '<input id="reset_button" type="button" value="reset settings" onclick="send_cmd_temporaer();setTimeout(function(){location.reload(true);}, 1000);" class="btn btn-danger btn-block">';
 	$systemButtons .= '</div>';
 ?>
 <script>
 function showSystemControllerButtons() {
 	bootbox.dialog({
-		//title: "System controller",
+		title: "System",
 		message: '<?php echo $systemButtons; ?>'
 	});
 }
