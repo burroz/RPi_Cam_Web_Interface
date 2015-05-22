@@ -4,10 +4,12 @@
 		define('NAV_POS','index');
 	}
 	$systemButtons = '';
+	$systemButtons .= '<div class="row">';
 	$systemButtons .= '<input id="toggle_stream" type="button" class="btn btn-primary" value="' . $streamButton . '" onclick="set_stream_mode(this.value);">';
 	$systemButtons .= '<input id="shutdown_button" type="button" value="shutdown system" onclick="sys_shutdown();" class="btn btn-danger">';
 	$systemButtons .= '<input id="reboot_button" type="button" value="reboot system" onclick="sys_reboot();" class="btn btn-danger">';
 	$systemButtons .= '<input id="reset_button" type="button" value="reset settings" onclick="send_cmd_temporaer();setTimeout(function(){location.reload(true);}, 1000);" class="btn btn-danger">';
+	$systemButtons .= '</div>';
 ?>
 <script>
 function testme() {
