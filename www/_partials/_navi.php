@@ -4,17 +4,25 @@
 		define('NAV_POS','index');
 	}
 	$systemButtons = '';
-	$systemButtons .= '<div class="container"><p>';
+	$systemButtons .= '<div class="container row">';
+	$systemButtons .= '<div class="col-md-1">';
 	$systemButtons .= '<input id="toggle_stream" type="button" class="btn btn-primary" value="' . $streamButton . '" onclick="set_stream_mode(this.value);">';
+	$systemButtons .= '</div>';
+	$systemButtons .= '<div class="col-md-1">';
 	$systemButtons .= '<input id="shutdown_button" type="button" value="shutdown system" onclick="sys_shutdown();" class="btn btn-danger">';
+	$systemButtons .= '</div>';
+	$systemButtons .= '<div class="col-md-1">';
 	$systemButtons .= '<input id="reboot_button" type="button" value="reboot system" onclick="sys_reboot();" class="btn btn-danger">';
+	$systemButtons .= '</div>';
+	$systemButtons .= '<div class="col-md-1">';
 	$systemButtons .= '<input id="reset_button" type="button" value="reset settings" onclick="send_cmd_temporaer();setTimeout(function(){location.reload(true);}, 1000);" class="btn btn-danger">';
-	$systemButtons .= '</p></div>';
+	$systemButtons .= '</div>';
+	$systemButtons .= '</div>';
 ?>
 <script>
-function testme() {
+function showSystemControllerButtons() {
 	bootbox.dialog({
-		title: "That html",
+		//title: "System controller",
 		message: '<?php echo $systemButtons; ?>'
 	});
 }
@@ -46,7 +54,7 @@ function send_cmd_temporaer() {
 						<li class="<? if (NAV_POS == "camera") { echo "active"; } ?>"><a href="camera.php">Camera settings</a></li>
 					</ul>
 				</li>
-				<li class="<? if (NAV_POS == "system") { echo "active"; } ?>"><a href="javascript:testme()" id="test">System</a></li>
+				<li class="<? if (NAV_POS == "system") { echo "active"; } ?>"><a href="javascript:showSystemControllerButtons()" id="test">System</a></li>
 			</ul>
 		</div>
 	</div>
