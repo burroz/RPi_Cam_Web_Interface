@@ -4,7 +4,8 @@
 		define('NAV_POS','index');
 	}
 	$systemButtons = '';
-	$systemButtons .= '<div class="container row">';
+	$systemButtons .= '<div class="container">';
+	$systemButtons .= '<div class="row">';
 	$systemButtons .= '<div class="col-md-3">';
 	$systemButtons .= '<input id="toggle_stream" type="button" class="btn btn-primary" value="' . $streamButton . '" onclick="set_stream_mode(this.value);">';
 	$systemButtons .= '</div>';
@@ -16,6 +17,7 @@
 	$systemButtons .= '</div>';
 	$systemButtons .= '<div class="col-md-3">';
 	$systemButtons .= '<input id="reset_button" type="button" value="reset settings" onclick="send_cmd_temporaer();setTimeout(function(){location.reload(true);}, 1000);" class="btn btn-danger">';
+	$systemButtons .= '</div>';
 	$systemButtons .= '</div>';
 	$systemButtons .= '</div>';
 ?>
