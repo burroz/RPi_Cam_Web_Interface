@@ -31,7 +31,7 @@
 				break;
 			default: $value = $config[$selKey]; break;
 		}
-		echo "<input type='text' class='form-control input-sm $css' size=$size id='$id' value='$value'>";
+		echo "<input type='text' class='form-control input-xs $css' size=$size id='$id' value='$value'>";
 	}
 	
 	function makeOptions($options, $selKey) {
