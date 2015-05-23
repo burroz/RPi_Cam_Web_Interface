@@ -1,32 +1,15 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-7 text-center liveimage">
+		<div class="col-md-10 text-center liveimage">
 			<img id="mjpeg_dest" <?php if(file_exists("pipan_on")) echo "ontouchstart=\"pipan_start()\""; ?> onclick="toggle_fullscreen(this);" src="/loading.jpg">
 		</div>
-		<div class="col-md-5" id="main-buttons" <?php #echo $displayStyle; ?> >
+		<div class="col-md-2" id="main-buttons" <?php #echo $displayStyle; ?> >
 			<div class="row">
-				<form class="form-inline">
-					<div class="form-group">
-						<button id="video_button" type="button" class="btn btn-default">Video start/end</button>
-					</div>
-					<div class="form-group">
-						<button id="image_button" type="button" class="btn btn-default">Image</button>
-					</div>
-					<div class="form-group">
-						<button id="timelapse_button" type="button" class="btn btn-default">TL</button>
-					</div>
-					<div class="form-group">
-						<button id="md_button" type="button" class="btn btn-default">MD</button>
-					</div>
-					<div class="form-group">
-						<button id="halt_button" type="button" class="btn btn-warning">CAM Stop</button>
-					</div>
-				</form>
-			</div>
-			<div class="row">
-				<div class="settingsTable">
-					
-				</div>
+				<input id="video_button" type="button" class="btn btn-default btn-block">
+				<input id="image_button" type="button" class="btn btn-default btn-block">
+				<input id="timelapse_button" type="button" class="btn btn-default btn-block">
+				<input id="md_button" type="button" class="btn btn-default btn-block">
+				<input id="halt_button" type="button" class="btn btn-warning btn-block">
 			</div>
 		</div>
 	</div>
