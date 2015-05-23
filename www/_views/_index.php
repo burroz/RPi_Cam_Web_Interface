@@ -3,12 +3,12 @@
 		<div class="col-md-8 text-center liveimage">
 			<img id="mjpeg_dest" <?php if(file_exists("pipan_on")) echo "ontouchstart=\"pipan_start()\""; ?> onclick="toggle_fullscreen(this);" src="/loading.jpg">
 		</div>
-		<div class="col-md-4" id="main-buttons" <?php #echo $displayStyle; ?> >
-			<input id="video_button" type="button" class="btn btn-primary">
-			<input id="image_button" type="button" class="btn btn-primary">
-			<input id="timelapse_button" type="button" class="btn btn-primary">
-			<input id="md_button" type="button" class="btn btn-primary">
-			<input id="halt_button" type="button" class="btn btn-danger">
+		<div class="col-md-4 text-center" id="main-buttons" <?php #echo $displayStyle; ?> >
+			<input id="video_button" type="button" class="btn btn-default btn-block">
+			<input id="image_button" type="button" class="btn btn-default btn-block">
+			<input id="timelapse_button" type="button" class="btn btn-default btn-block">
+			<input id="md_button" type="button" class="btn btn-default btn-block">
+			<input id="halt_button" type="button" class="btn btn-warning btn-block">
 		</div>
 	</div>
 	<div class="row">
