@@ -1,42 +1,49 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 text-center liveimage">
+		<div class="col-md-6 text-center liveimage">
 			<img id="mjpeg_dest" <?php if(file_exists("pipan_on")) echo "ontouchstart=\"pipan_start()\""; ?> onclick="toggle_fullscreen(this);" src="/loading.jpg">
 		</div>
-		<div class="col-md-4 text-center" id="main-buttons" <?php #echo $displayStyle; ?> >
-			<input id="video_button" type="button" class="btn btn-default btn-block">
-			<input id="image_button" type="button" class="btn btn-default btn-block">
-			<input id="timelapse_button" type="button" class="btn btn-default btn-block">
-			<input id="md_button" type="button" class="btn btn-default btn-block">
-			<input id="halt_button" type="button" class="btn btn-warning btn-block">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<table class="settingsTable table">
-				<tr>
-					<td>Resolutions:</td>
-					<td>
-						Load Preset:
-						<select onchange="set_preset(this.value)">
+		<div class="col-md-6 text-center" id="main-buttons" <?php #echo $displayStyle; ?> >
+			<div class="row">
+				<input id="video_button" type="button" class="btn btn-default btn-block">
+				<input id="image_button" type="button" class="btn btn-default btn-block">
+				<input id="timelapse_button" type="button" class="btn btn-default btn-block">
+				<input id="md_button" type="button" class="btn btn-default btn-block">
+				<input id="halt_button" type="button" class="btn btn-warning btn-block">
+			</div>
+			<div class="row">
+				<form>
+					<h4>Resolution</h4>
+					<div class="form-group">
+						<label for="">Load Preset</label>
+						<select onchange="set_preset(this.value)" class="form-control">
 							<option value="1920 1080 25 25 2592 1944">Select option...</option>
 							<option value="1920 1080 25 25 2592 1944">Std FOV</option>
 							<option value="1296 730 25 25 2592 1944">16:9 wide FOV</option>
 							<option value="1296 976 25 25 2592 1944">4:3 full FOV</option>
 							<option value="1920 1080 01 30 2592 1944">Std FOV, x30 Timelapse</option>
 						</select>
-						<br>
-						Custom Values:<br>
+					</div>
+					<h5>Custom Values</h5>
+					<div class="form-group">
 						Video res: <?php makeInput('video_width', 4); ?>x<?php makeInput('video_height', 4); ?>px<br>
 						Video fps: <?php makeInput('video_fps', 2); ?>recording, <?php makeInput('MP4Box_fps', 2); ?>boxing<br>
 						Image res: <?php makeInput('image_width', 4); ?>x<?php makeInput('image_height', 4); ?>px<br>
 						<input type="button" value="OK" onclick="set_res();">
-					</td>
-				</tr>
-				<tr>
-					<td>Timelapse-Interval (0.1...3200):</td>
-					<td><?php makeInput('tl_interval', 4); ?>s <input type="button" value="OK" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)"></td>
-				</tr>
+					</div>
+					<h5>Custom Values</h5>
+					<div class="form-group">
+						<label>Timelapse-Interval (0.1...3200)</label>
+						<?php makeInput('tl_interval', 4); ?>s
+						<input type="button" value="OK" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<table class="settingsTable table">
 				<tr>
 					<td>Annotation (max 127 characters):</td>
 					<td>
