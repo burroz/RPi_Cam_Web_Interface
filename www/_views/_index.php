@@ -57,7 +57,7 @@
 								<label>x</label>
 								<?php makeInput('image_height', 4); ?>
 								<label>px</label>
-								<button class="btn btn-primary btn-xs" onclick="set_res();">OK</button>
+								<button class="btn btn-primary btn-xs" onclick="set_res();"><i class="fa fa-floppy-o"></i> save</button>
 							</div>
 						</div>
 					</form>
@@ -67,7 +67,7 @@
 							<label>Timelapse-Interval (0.1...3200)</label>
 							<?php makeInput('tl_interval', 4); ?>
 							<label>s</label>
-							<button class="btn btn-primary btn-xs" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">OK</button>
+							<button class="btn btn-primary btn-xs" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)"><i class="fa fa-floppy-o"></i> save</button>
 						</div>
 					</form>
 				</div>
@@ -81,7 +81,7 @@
 							<div class="form-group">
 								<label>Text:</label>
 								<?php makeInput('annotation', 20); ?>
-								<button class="btn btn-primary btn-xs" onclick="send_cmd('an ' + encodeURI(document.getElementById('annotation').value))">OK</button>
+								<button class="btn btn-primary btn-xs" onclick="send_cmd('an ' + encodeURI(document.getElementById('annotation').value))"><i class="fa fa-floppy-o"></i> save</button>
 								<input type="button" value="Default" onclick="document.getElementById('annotation').value = 'RPi Cam %Y.%M.%D_%h:%m:%s'; send_cmd('an ' + encodeURI(document.getElementById('annotation').value))">
 							</div>
 						</div>
@@ -95,21 +95,21 @@
 							<div class="form-group">
 								<label>Annotation size (0-99):</label>
 								<?php makeInput('anno_text_size', 3); ?>
-								<button class="btn btn-primary btn-xs" onclick="send_cmd('as ' + document.getElementById('anno_text_size').value)">OK</button>
+								<button class="btn btn-primary btn-xs" onclick="send_cmd('as ' + document.getElementById('anno_text_size').value)"><i class="fa fa-floppy-o"></i> save</button>
 							</div>
 						</div>
 						<div>
 							<div class="form-group">
 								<label>Custom text color:</label>
 								<select id="at_en"><?php makeOptions($options_at_en, 'anno3_custom_text_colour'); ?></select> y:u:v = <?php makeInput('at_y', 3, 'anno3_custom_text_Y'); ?>:<?php makeInput('at_u', 4, 'anno3_custom_text_U'); ?>:<?php makeInput('at_v', 4, 'anno3_custom_text_V'); ?>
-								<button class="btn btn-primary btn-xs" onclick="set_at();">OK</button>
+								<button class="btn btn-primary btn-xs" onclick="set_at();"><i class="fa fa-floppy-o"></i> save</button>
 							</div>
 						</div>
 						<div>
 							<div class="form-group">
 								<label>Custom background color:</label>
 								<select id="ac_en"><?php makeOptions($options_ac_en, 'anno3_custom_background_colour'); ?></select> y:u:v = <?php makeInput('ac_y', 3, 'anno3_custom_background_Y'); ?>:<?php makeInput('ac_u', 4, 'anno3_custom_background_U'); ?>:<?php makeInput('ac_v', 4, 'anno3_custom_background_V'); ?>
-								<button class="btn btn-primary btn-xs" onclick="set_ac();">OK</button>
+								<button class="btn btn-primary btn-xs" onclick="set_ac();"><i class="fa fa-floppy-o"></i> save</button>
 							</div>
 						</div>
 					</form>
@@ -122,17 +122,17 @@
 				<div class="panel-heading">3. Light and Image</div>
 				<div class="panel-body">
 					Buffer (1000... ms), default 0: <?php makeInput('video_buffer', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('bu ' + document.getElementById('video_buffer').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('bu ' + document.getElementById('video_buffer').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Sharpness (-100...100), default 0: <?php makeInput('sharpness', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('sh ' + document.getElementById('sharpness').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('sh ' + document.getElementById('sharpness').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Contrast (-100...100), default 0: <?php makeInput('contrast', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('co ' + document.getElementById('contrast').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('co ' + document.getElementById('contrast').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Brightness (0...100), default 50: <?php makeInput('brightness', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('br ' + document.getElementById('brightness').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('br ' + document.getElementById('brightness').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Saturation (-100...100), default 0: <?php makeInput('saturation', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('sa ' + document.getElementById('saturation').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('sa ' + document.getElementById('saturation').value)"><i class="fa fa-floppy-o"></i> save</button>
 					ISO (100...800), default 0: <?php makeInput('iso', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('is ' + document.getElementById('iso').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('is ' + document.getElementById('iso').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Metering Mode, default 'average': <select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select>
 				</div>
 			</div>
@@ -154,7 +154,7 @@
 				<div class="panel-body">
 					Exposure Compensation (-10...10), default 0:
 					<?php makeInput('exposure_compensation', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('ec ' + document.getElementById('exposure_compensation').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('ec ' + document.getElementById('exposure_compensation').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Exposure Mode, default 'auto':
 					<select onchange="send_cmd('em ' + this.value)"><?php makeOptions($options_em, 'exposure_mode'); ?></select>
 					White Balance, default 'auto':
@@ -163,13 +163,13 @@
 					<select onchange="send_cmd('ie ' + this.value)"><?php makeOptions($options_ie, 'image_effect'); ?></select>
 					Colour Effect, default 'disabled':
 					<select id="ce_en"><?php makeOptions($options_ce_en, 'colour_effect_en'); ?></select> u:v = <?php makeInput('ce_u', 4, 'colour_effect_u'); ?>:<?php makeInput('ce_v', 4, 'colour_effect_v'); ?>
-					<button class="btn btn-primary btn-xs" onclick="set_ce();">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="set_ce();"><i class="fa fa-floppy-o"></i> save</button>
 					Sensor Region, default 0/0/65536/65536:
 					x<?php makeInput('roi_x', 5, 'sensor_region_x'); ?> y<?php makeInput('roi_y', 5, 'sensor_region_y'); ?> w<?php makeInput('roi_w', 5, 'sensor_region_w'); ?> h<?php makeInput('roi_h', 4, 'sensor_region_h'); ?>
-					<button class="btn btn-primary btn-xs" onclick="set_roi();">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="set_roi();"><i class="fa fa-floppy-o"></i> save</button>
 					Shutter speed (0...330000), default 0:
 					<?php makeInput('shutter_speed', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)"><i class="fa fa-floppy-o"></i> save</button>
 				</div>
 			</div>
 		
@@ -178,15 +178,15 @@
 				<div class="panel-body">
 					Image quality (0...100), default 85:
 					<?php makeInput('image_quality', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('qu ' + document.getElementById('image_quality').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('qu ' + document.getElementById('image_quality').value)"><i class="fa fa-floppy-o"></i> save</button>
 					Preview quality (0...100) Default 25:<br>Width (128...1024) Default 512:<br>Divider (1-16) Default 1: Qu: <?php makeInput('quality', 4); ?> Wi: <?php makeInput('width', 4); ?> Di: <?php makeInput('divider', 4); ?>
-					<button class="btn btn-primary btn-xs" onclick="set_preview();">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="set_preview();"><i class="fa fa-floppy-o"></i> save</button>
 					Raw Layer, default: 'off' <select onchange="send_cmd('rl ' + this.value)"><?php makeOptions($options_rl, 'raw_layer'); ?></select>
 					Video bitrate (0...25000000), default 17000000: <?php makeInput('video_bitrate', 10); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('bi ' + document.getElementById('video_bitrate').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('bi ' + document.getElementById('video_bitrate').value)"><i class="fa fa-floppy-o"></i> save</button>
 					MP4 Boxing mode : <select onchange="send_cmd('bo ' + this.value)"><?php makeOptions($options_bo, 'MP4Box'); ?></select>
 					Watchdog, default interval 3s, errors 3<br>Interval <?php makeInput('watchdog_interval', 3); ?>s&nbsp;&nbsp;&nbsp;&nbsp;Errors <?php makeInput('watchdog_errors', 3); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('wd ' + 10 * document.getElementById('watchdog_interval').value + ' ' + document.getElementById('watchdog_errors').value)">OK</button>
+					<button class="btn btn-primary btn-xs" onclick="send_cmd('wd ' + 10 * document.getElementById('watchdog_interval').value + ' ' + document.getElementById('watchdog_errors').value)"><i class="fa fa-floppy-o"></i> save</button>
 				</div>
 			</div>
 		
@@ -220,7 +220,7 @@
                         <select name='extrastyle' id='extrastyle'>
                            <?php #getExtraStyles(); ?>
                         </select>
-                        &nbsp;<button type="submit" name="OK" value="OK" >OK</button>
+                        &nbsp;<button type="submit" name="OK" value="OK" ><i class="fa fa-floppy-o"></i> save</button>
                      </form>
                   </div>
                </div>
