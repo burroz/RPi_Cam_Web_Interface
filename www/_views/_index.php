@@ -113,19 +113,56 @@
 			<div class="panel panel-default">	
 				<div class="panel-heading">3. Light and Image</div>
 				<div class="panel-body">
-					Buffer (1000... ms), default 0: <?php makeInput('video_buffer', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('bu ' + document.getElementById('video_buffer').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Sharpness (-100...100), default 0: <?php makeInput('sharpness', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('sh ' + document.getElementById('sharpness').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Contrast (-100...100), default 0: <?php makeInput('contrast', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('co ' + document.getElementById('contrast').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Brightness (0...100), default 50: <?php makeInput('brightness', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('br ' + document.getElementById('brightness').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Saturation (-100...100), default 0: <?php makeInput('saturation', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('sa ' + document.getElementById('saturation').value)"><i class="fa fa-floppy-o"></i> save</button>
-					ISO (100...800), default 0: <?php makeInput('iso', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('is ' + document.getElementById('iso').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Metering Mode, default 'average': <select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select>
+					<form class="form-inline">
+						<div>
+							<div class="form-group">
+								<label>Buffer (1000... ms), default 0:</label>
+								<?php makeInput('video_buffer', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('bu ' + document.getElementById('video_buffer').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Sharpness (-100...100), default 0:</label>
+								<?php makeInput('sharpness', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('sh ' + document.getElementById('sharpness').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Contrast (-100...100), default 0:</label>
+								<?php makeInput('contrast', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('co ' + document.getElementById('contrast').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Brightness (0...100), default 50:</label>
+								<?php makeInput('brightness', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('br ' + document.getElementById('brightness').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Saturation (-100...100), default 0:</label>
+								<?php makeInput('saturation', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('sa ' + document.getElementById('saturation').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>ISO (100...800), default 0:</label>
+								<?php makeInput('iso', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('is ' + document.getElementById('iso').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Metering Mode, default 'average':</label>
+								<select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		
