@@ -5,11 +5,23 @@
 		</div>
 		<div class="col-md-5" id="main-buttons" <?php #echo $displayStyle; ?> >
 			<div class="row">
-				<input id="video_button" type="button" class="btn btn-default btn-block">
-				<input id="image_button" type="button" class="btn btn-default btn-block">
-				<input id="timelapse_button" type="button" class="btn btn-default btn-block">
-				<input id="md_button" type="button" class="btn btn-default btn-block">
-				<input id="halt_button" type="button" class="btn btn-warning btn-block">
+				<form class="form-inline">
+					<div class="form-group">
+						<input id="video_button" type="button" class="btn btn-default">
+					</div>
+					<div class="form-group">
+						<input id="image_button" type="button" class="btn btn-default">
+					</div>
+					<div class="form-group">
+						<input id="timelapse_button" type="button" class="btn btn-default">
+					</div>
+					<div class="form-group">
+						<input id="md_button" type="button" class="btn btn-default">
+					</div>
+					<div class="form-group">
+						<input id="halt_button" type="button" class="btn btn-warning">
+					</div>
+				</form>
 			</div>
 			<div class="row">
 				<form class="settingsTable">
