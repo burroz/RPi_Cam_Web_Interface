@@ -12,7 +12,7 @@
 				<input id="halt_button" type="button" class="btn btn-warning btn-block">
 			</div>
 			<div class="row">
-				<form>
+				<form class="settingsTable">
 					<h4>Resolution</h4>
 					<div class="form-group">
 						<label for="">Load Preset</label>
