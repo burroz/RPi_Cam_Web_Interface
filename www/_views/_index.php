@@ -25,65 +25,72 @@
 			</div>
 			<div class="row">
 				<div class="settingsTable">
-					<h4>Resolution</h4>
-					<div class="form-group">
-						<label for="">Load Preset</label>
-						<select onchange="set_preset(this.value)" class="form-control">
-							<option value="1920 1080 25 25 2592 1944">Select option...</option>
-							<option value="1920 1080 25 25 2592 1944">Std FOV</option>
-							<option value="1296 730 25 25 2592 1944">16:9 wide FOV</option>
-							<option value="1296 976 25 25 2592 1944">4:3 full FOV</option>
-							<option value="1920 1080 01 30 2592 1944">Std FOV, x30 Timelapse</option>
-						</select>
+					<div class="well well-sm">
+						<h4>Resolution</h4>
+						<div class="form-group">
+							<label for="">Load Preset</label>
+							<select onchange="set_preset(this.value)" class="form-control">
+								<option value="1920 1080 25 25 2592 1944">Select option...</option>
+								<option value="1920 1080 25 25 2592 1944">Std FOV</option>
+								<option value="1296 730 25 25 2592 1944">16:9 wide FOV</option>
+								<option value="1296 976 25 25 2592 1944">4:3 full FOV</option>
+								<option value="1920 1080 01 30 2592 1944">Std FOV, x30 Timelapse</option>
+							</select>
+						</div>
 					</div>
-					<h5>Custom Values</h5>
-					<form class="form-inline">
-						<div class="form-group">
-							<label>Video res:</label>
-							<?php makeInput('video_width', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>x</label>
-							<?php makeInput('video_height', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>px</label>
-						</div>
-					</form>
-					<form class="form-inline">
-						<div class="form-group">
-							<label>Video fps:</label>
-							<?php makeInput('video_fps', 2); ?>
-						</div>
-						<div class="form-group">
-							<label>recording,</label>
-							<?php makeInput('MP4Box_fps', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>boxing</label>
-						</div>
-					</form>
-					<form class="form-inline">
-						<div class="form-group">
-							<label>Image res:</label>
-							<?php makeInput('image_width', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>x</label>
-							<?php makeInput('image_height', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>px</label>
-						</div>
-					</form>
-					<input type="button" value="OK" onclick="set_res();" class="btn btn-warning">
-					<form class="form-inline">
-						<div class="form-group">
-							<label>Timelapse-Interval (0.1...3200)</label>
-							<?php makeInput('tl_interval', 4); ?>s
-							<input type="button" value="OK" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">
-						</div>
-					</form>
+					<div class="well well-sm">
+						<h5>Custom Values</h5>
+						<form class="form-inline">
+							<div class="form-group">
+								<label>Video res:</label>
+								<?php makeInput('video_width', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>x</label>
+								<?php makeInput('video_height', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>px</label>
+							</div>
+						</form>
+						<form class="form-inline">
+							<div class="form-group">
+								<label>Video fps:</label>
+								<?php makeInput('video_fps', 2); ?>
+							</div>
+							<div class="form-group">
+								<label>recording,</label>
+								<?php makeInput('MP4Box_fps', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>boxing</label>
+							</div>
+						</form>
+						<form class="form-inline">
+							<div class="form-group">
+								<label>Image res:</label>
+								<?php makeInput('image_width', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>x</label>
+								<?php makeInput('image_height', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>px</label>
+							</div>
+						</form>
+						<input type="button" value="OK" onclick="set_res();" class="btn btn-warning">
+					</div>
+					<div class="well well-sm">
+						<form class="form-inline">
+							<div class="form-group">
+								<label>Timelapse-Interval (0.1...3200)</label>
+								<?php makeInput('tl_interval', 4); ?>
+								<label>s</label>
+								<input type="button" value="OK" class="btn btn-warning" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
