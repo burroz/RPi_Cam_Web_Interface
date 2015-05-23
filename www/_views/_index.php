@@ -32,7 +32,7 @@
 					<hr>
 					<h5>Custom Values</h5>
 					<form class="form-inline">
-						<div class="col-sm-12">
+						<div class="Acol-sm-12">
 							<div class="form-group">
 								<label>Video res:</label>
 								<?php makeInput('video_width', 4); ?>
@@ -41,7 +41,7 @@
 								<label>px</label>
 							</div>
 						</div>
-						<div class="col-sm-12">
+						<div class="Acol-sm-12">
 							<div class="form-group">
 								<label>Video fps:</label>
 								<?php makeInput('video_fps', 2); ?>
