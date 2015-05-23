@@ -1,13 +1,39 @@
+<form>
+
+	<div class="form-group">
+		<label for="">Resolutions</label>
+		<select onchange="set_preset(this.value)" class="form-control">
+			<option value="1920 1080 25 25 2592 1944">Select option...</option>
+			<option value="1920 1080 25 25 2592 1944">Std FOV</option>
+			<option value="1296 730 25 25 2592 1944">16:9 wide FOV</option>
+			<option value="1296 976 25 25 2592 1944">4:3 full FOV</option>
+			<option value="1920 1080 01 30 2592 1944">Std FOV, x30 Timelapse</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="">Custom Values</label>
+		Video res: <?php makeInput('video_width', 4); ?>x<?php makeInput('video_height', 4); ?>px<br>
+		Video fps: <?php makeInput('video_fps', 2); ?>recording, <?php makeInput('MP4Box_fps', 2); ?>boxing<br>
+		Image res: <?php makeInput('image_width', 4); ?>x<?php makeInput('image_height', 4); ?>px<br>
+		<input type="button" value="OK" onclick="set_res();">
+	</div>
+</form>
+
+
+<!--
 <table class="settingsTable">
 	<tr>
 		<td>Resolutions:</td>
-		<td>Load Preset: <select onchange="set_preset(this.value)">
+		<td>
+			Load Preset:
+			<select onchange="set_preset(this.value)">
 				<option value="1920 1080 25 25 2592 1944">Select option...</option>
 				<option value="1920 1080 25 25 2592 1944">Std FOV</option>
 				<option value="1296 730 25 25 2592 1944">16:9 wide FOV</option>
 				<option value="1296 976 25 25 2592 1944">4:3 full FOV</option>
 				<option value="1920 1080 01 30 2592 1944">Std FOV, x30 Timelapse</option>
-			</select><br>
+			</select>
+			<br>
 			Custom Values:<br>
 			Video res: <?php makeInput('video_width', 4); ?>x<?php makeInput('video_height', 4); ?>px<br>
 			Video fps: <?php makeInput('video_fps', 2); ?>recording, <?php makeInput('MP4Box_fps', 2); ?>boxing<br>
@@ -158,3 +184,4 @@
 		</td>
 	</tr>
 </table>
+-->
