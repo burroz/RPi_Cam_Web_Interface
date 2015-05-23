@@ -106,7 +106,7 @@
 			</div>
 			<?php if (file_exists("pilight_on")) pilight_controls(); ?>
 			<div class="panel panel-default">	
-				<div class="panel-heading">3. Light and Image</div>
+				<div class="panel-heading">Others</div>
 				<div class="panel-body">
 					<form class="form-inline">
 						<div>
@@ -157,13 +157,6 @@
 								<select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">4. Image orientation</div>
-				<div class="panel-body">
-					<form class="form-inline">
 						<div>
 							<div class="form-group">
 								<label>Video Stabilisation, default: 'off'</label>
@@ -182,13 +175,6 @@
 								<select onchange="send_cmd('fl ' + this.value)"><?php makeOptions($options_fl, 'flip'); ?></select>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">5. Exposure</div>
-				<div class="panel-body">
-					<form class="form-inline">
 						<div>
 							<div class="form-group">
 								<label>Exposure Compensation (-10...10), default 0:</label>
@@ -246,13 +232,6 @@
 								<button class="btn btn-default btn-sm" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)"><i class="fa fa-floppy-o"></i> save</button>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">6. Others</div>
-				<div class="panel-body">
-					<form class="form-inline">
 						<div>
 							<div class="form-group">
 								<label>Image quality (0...100), default 85:</label>
