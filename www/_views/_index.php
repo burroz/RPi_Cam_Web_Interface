@@ -1,9 +1,9 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 text-center liveimage">
+		<div class="col-md-7 text-center liveimage">
 			<img id="mjpeg_dest" <?php if(file_exists("pipan_on")) echo "ontouchstart=\"pipan_start()\""; ?> onclick="toggle_fullscreen(this);" src="/loading.jpg">
 		</div>
-		<div class="col-md-6" id="main-buttons" <?php #echo $displayStyle; ?> >
+		<div class="col-md-5" id="main-buttons" <?php #echo $displayStyle; ?> >
 			<div class="row">
 				<input id="video_button" type="button" class="btn btn-default btn-block">
 				<input id="image_button" type="button" class="btn btn-default btn-block">
