@@ -107,38 +107,34 @@
 					Custom background color: <select id="ac_en"><?php makeOptions($options_ac_en, 'anno3_custom_background_colour'); ?></select> y:u:v = <?php makeInput('ac_y', 3, 'anno3_custom_background_Y'); ?>:<?php makeInput('ac_u', 4, 'anno3_custom_background_U'); ?>:<?php makeInput('ac_v', 4, 'anno3_custom_background_V'); ?> <input type="button" value="OK" onclick="set_ac();">
 				</div>
 			</div>
+			
+			<?php if (file_exists("pilight_on")) pilight_controls(); ?>
 
-			<table class="settingsTable table">
-				<?php if (file_exists("pilight_on")) pilight_controls(); ?>
-				<tr>
-					<td>Buffer (1000... ms), default 0:</td>
-					<td><?php makeInput('video_buffer', 4); ?><input type="button" value="OK" onclick="send_cmd('bu ' + document.getElementById('video_buffer').value)"></td>
-				</tr><tr>
-					<td>Sharpness (-100...100), default 0:</td>
-					<td><?php makeInput('sharpness', 4); ?><input type="button" value="OK" onclick="send_cmd('sh ' + document.getElementById('sharpness').value)"></td>
-				</tr>
-				<tr>
-					<td>Contrast (-100...100), default 0:</td>
-					<td><?php makeInput('contrast', 4); ?><input type="button" value="OK" onclick="send_cmd('co ' + document.getElementById('contrast').value)">
-					</td>
-				</tr>
-				<tr>
-					<td>Brightness (0...100), default 50:</td>
-					<td><?php makeInput('brightness', 4); ?><input type="button" value="OK" onclick="send_cmd('br ' + document.getElementById('brightness').value)"></td>
-				</tr>
-				<tr>
-					<td>Saturation (-100...100), default 0:</td>
-					<td><?php makeInput('saturation', 4); ?><input type="button" value="OK" onclick="send_cmd('sa ' + document.getElementById('saturation').value)"></td>
-				</tr>
-				<tr>
-					<td>ISO (100...800), default 0:</td>
-					<td><?php makeInput('iso', 4); ?><input type="button" value="OK" onclick="send_cmd('is ' + document.getElementById('iso').value)"></td>
-				</tr>
-				<tr>
-					<td>Metering Mode, default 'average':</td>
-					<td><select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select></td>
-				</tr>
-			</table>
+			<div class="panel panel-default">
+				<div class="panel-heading">Light and Image</div>
+				<div class="panel-body">
+					Buffer (1000... ms), default 0: <?php makeInput('video_buffer', 4); ?><input type="button" value="OK" onclick="send_cmd('bu ' + document.getElementById('video_buffer').value)">
+					Sharpness (-100...100), default 0: <?php makeInput('sharpness', 4); ?><input type="button" value="OK" onclick="send_cmd('sh ' + document.getElementById('sharpness').value)">
+					Contrast (-100...100), default 0: <?php makeInput('contrast', 4); ?><input type="button" value="OK" onclick="send_cmd('co ' + document.getElementById('contrast').value)">
+					Brightness (0...100), default 50: <?php makeInput('brightness', 4); ?><input type="button" value="OK" onclick="send_cmd('br ' + document.getElementById('brightness').value)">
+					Saturation (-100...100), default 0: <?php makeInput('saturation', 4); ?><input type="button" value="OK" onclick="send_cmd('sa ' + document.getElementById('saturation').value)">
+					ISO (100...800), default 0: <?php makeInput('iso', 4); ?><input type="button" value="OK" onclick="send_cmd('is ' + document.getElementById('iso').value)">
+					Metering Mode, default 'average': <select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">XXX</div>
+				<div class="panel-body">
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">XXX</div>
+				<div class="panel-body">
+				</div>
+			</div>
+
 		</div>
 		<div class="col-md-4">
 			<table class="settingsTable table">
