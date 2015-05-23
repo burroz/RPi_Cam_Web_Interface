@@ -24,7 +24,7 @@
 				</form>
 			</div>
 			<div class="row">
-				<form class="settingsTable">
+				<div class="settingsTable">
 					<h4>Resolution</h4>
 					<div class="form-group">
 						<label for="">Load Preset</label>
@@ -61,7 +61,7 @@
 						<?php makeInput('tl_interval', 4); ?>s
 						<input type="button" value="OK" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
