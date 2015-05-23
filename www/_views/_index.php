@@ -14,8 +14,6 @@
 		</div>
 	</div>
 	<div class="row">
-	
-		
 			<div class="panel panel-default">
 				<div class="panel-heading">1. Resolution</div>
 				<div class="panel-body">
@@ -72,7 +70,6 @@
 					</form>
 				</div>
 			</div>
-		
 			<div class="panel panel-default">
 				<div class="panel-heading">2. Annotation (max 127 characters)</div>
 				<div class="panel-body">
@@ -107,9 +104,7 @@
 					</form>
 				</div>
 			</div>
-		
 			<?php if (file_exists("pilight_on")) pilight_controls(); ?>
-		
 			<div class="panel panel-default">	
 				<div class="panel-heading">3. Light and Image</div>
 				<div class="panel-body">
@@ -165,61 +160,156 @@
 					</form>
 				</div>
 			</div>
-		
 			<div class="panel panel-default">
 				<div class="panel-heading">4. Image orientation</div>
 				<div class="panel-body">
-					Video Stabilisation, default: 'off'
-					<select onchange="send_cmd('vs ' + this.value)"><?php makeOptions($options_vs, 'video_stabilisation'); ?></select>
-					Rotation, default 0:
-					<select onchange="send_cmd('ro ' + this.value)"><?php makeOptions($options_ro, 'rotation'); ?></select>
-					Flip, default 'none':
-					<select onchange="send_cmd('fl ' + this.value)"><?php makeOptions($options_fl, 'flip'); ?></select>
+					<form class="form-inline">
+						<div>
+							<div class="form-group">
+								<label>Video Stabilisation, default: 'off'</label>
+								<select onchange="send_cmd('vs ' + this.value)"><?php makeOptions($options_vs, 'video_stabilisation'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Rotation, default 0:</label>
+								<select onchange="send_cmd('ro ' + this.value)"><?php makeOptions($options_ro, 'rotation'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Flip, default 'none':</label>
+								<select onchange="send_cmd('fl ' + this.value)"><?php makeOptions($options_fl, 'flip'); ?></select>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
-		
 			<div class="panel panel-default">
 				<div class="panel-heading">5. Exposure</div>
 				<div class="panel-body">
-					Exposure Compensation (-10...10), default 0:
-					<?php makeInput('exposure_compensation', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('ec ' + document.getElementById('exposure_compensation').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Exposure Mode, default 'auto':
-					<select onchange="send_cmd('em ' + this.value)"><?php makeOptions($options_em, 'exposure_mode'); ?></select>
-					White Balance, default 'auto':
-					<select onchange="send_cmd('wb ' + this.value)"><?php makeOptions($options_wb, 'white_balance'); ?></select>
-					Image Effect, default 'none':
-					<select onchange="send_cmd('ie ' + this.value)"><?php makeOptions($options_ie, 'image_effect'); ?></select>
-					Colour Effect, default 'disabled':
-					<select id="ce_en"><?php makeOptions($options_ce_en, 'colour_effect_en'); ?></select> u:v = <?php makeInput('ce_u', 4, 'colour_effect_u'); ?>:<?php makeInput('ce_v', 4, 'colour_effect_v'); ?>
-					<button class="btn btn-default btn-sm" onclick="set_ce();"><i class="fa fa-floppy-o"></i> save</button>
-					Sensor Region, default 0/0/65536/65536:
-					x<?php makeInput('roi_x', 5, 'sensor_region_x'); ?> y<?php makeInput('roi_y', 5, 'sensor_region_y'); ?> w<?php makeInput('roi_w', 5, 'sensor_region_w'); ?> h<?php makeInput('roi_h', 4, 'sensor_region_h'); ?>
-					<button class="btn btn-default btn-sm" onclick="set_roi();"><i class="fa fa-floppy-o"></i> save</button>
-					Shutter speed (0...330000), default 0:
-					<?php makeInput('shutter_speed', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)"><i class="fa fa-floppy-o"></i> save</button>
+					<form class="form-inline">
+						<div>
+							<div class="form-group">
+								<label>Exposure Compensation (-10...10), default 0:</label>
+								<?php makeInput('exposure_compensation', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('ec ' + document.getElementById('exposure_compensation').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Exposure Mode, default 'auto':</label>
+								<select onchange="send_cmd('em ' + this.value)"><?php makeOptions($options_em, 'exposure_mode'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>White Balance, default 'auto':</label>
+								<select onchange="send_cmd('wb ' + this.value)"><?php makeOptions($options_wb, 'white_balance'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Image Effect, default 'none':</label>
+								<select onchange="send_cmd('ie ' + this.value)"><?php makeOptions($options_ie, 'image_effect'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Colour Effect, default 'disabled':</label>
+								<select id="ce_en"><?php makeOptions($options_ce_en, 'colour_effect_en'); ?></select>
+								<label>u:v =</label>
+								<?php makeInput('ce_u', 4, 'colour_effect_u'); ?>
+								<label>:</label>
+								<?php makeInput('ce_v', 4, 'colour_effect_v'); ?>
+								<button class="btn btn-default btn-sm" onclick="set_ce();"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Sensor Region, default 0/0/65536/65536:</label>
+								<label>x</label>
+								<?php makeInput('roi_x', 5, 'sensor_region_x'); ?>
+								<label>y</label>
+								<?php makeInput('roi_y', 5, 'sensor_region_y'); ?>
+								<label>w</label>
+								<?php makeInput('roi_w', 5, 'sensor_region_w'); ?>
+								<label>h</label>
+								<?php makeInput('roi_h', 4, 'sensor_region_h'); ?>
+								<button class="btn btn-default btn-sm" onclick="set_roi();"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Shutter speed (0...330000), default 0:</label>
+								<?php makeInput('shutter_speed', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
-		
 			<div class="panel panel-default">
 				<div class="panel-heading">6. Others</div>
 				<div class="panel-body">
-					Image quality (0...100), default 85:
-					<?php makeInput('image_quality', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('qu ' + document.getElementById('image_quality').value)"><i class="fa fa-floppy-o"></i> save</button>
-					Preview quality (0...100) Default 25:<br>Width (128...1024) Default 512:<br>Divider (1-16) Default 1: Qu: <?php makeInput('quality', 4); ?> Wi: <?php makeInput('width', 4); ?> Di: <?php makeInput('divider', 4); ?>
-					<button class="btn btn-default btn-sm" onclick="set_preview();"><i class="fa fa-floppy-o"></i> save</button>
-					Raw Layer, default: 'off' <select onchange="send_cmd('rl ' + this.value)"><?php makeOptions($options_rl, 'raw_layer'); ?></select>
-					Video bitrate (0...25000000), default 17000000: <?php makeInput('video_bitrate', 10); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('bi ' + document.getElementById('video_bitrate').value)"><i class="fa fa-floppy-o"></i> save</button>
-					MP4 Boxing mode : <select onchange="send_cmd('bo ' + this.value)"><?php makeOptions($options_bo, 'MP4Box'); ?></select>
-					Watchdog, default interval 3s, errors 3<br>Interval <?php makeInput('watchdog_interval', 3); ?>s&nbsp;&nbsp;&nbsp;&nbsp;Errors <?php makeInput('watchdog_errors', 3); ?>
-					<button class="btn btn-default btn-sm" onclick="send_cmd('wd ' + 10 * document.getElementById('watchdog_interval').value + ' ' + document.getElementById('watchdog_errors').value)"><i class="fa fa-floppy-o"></i> save</button>
+					<form class="form-inline">
+						<div>
+							<div class="form-group">
+								<label>Image quality (0...100), default 85:</label>
+								<?php makeInput('image_quality', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('qu ' + document.getElementById('image_quality').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Preview quality (0...100) Default 25:<br>Width (128...1024) Default 512:<br>Divider (1-16) Default 1:</label>
+								<label>Qu:</label>
+								<?php makeInput('quality', 4); ?>
+								<label>Wi:</label>
+								<?php makeInput('width', 4); ?>
+								<label>Di:</label>
+								<?php makeInput('divider', 4); ?>
+								<button class="btn btn-default btn-sm" onclick="set_preview();"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Raw Layer, default: 'off'</label>
+								<select onchange="send_cmd('rl ' + this.value)"><?php makeOptions($options_rl, 'raw_layer'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Video bitrate (0...25000000), default 17000000:</label>
+								<?php makeInput('video_bitrate', 10); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('bi ' + document.getElementById('video_bitrate').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>MP4 Boxing mode:</label>
+								<select onchange="send_cmd('bo ' + this.value)"><?php makeOptions($options_bo, 'MP4Box'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Watchdog, default interval 3s, errors 3</label>
+								<label>Interval</label>
+								<?php makeInput('watchdog_interval', 3); ?>
+								<label>s</label>
+								<label>Errors</label>
+								<?php makeInput('watchdog_errors', 3); ?>
+								<button class="btn btn-default btn-sm" onclick="send_cmd('wd ' + 10 * document.getElementById('watchdog_interval').value + ' ' + document.getElementById('watchdog_errors').value)"><i class="fa fa-floppy-o"></i> save</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label></label>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
-		
-
 	</div>
 </div>
 
