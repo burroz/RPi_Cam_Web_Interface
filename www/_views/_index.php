@@ -38,11 +38,8 @@
 									<option value="1920 1080 01 30 2592 1944">Std FOV, x30 Timelapse</option>
 								</select>
 							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">Custom Values</div>
-						<div class="panel-body">
+							<hr>
+							<h5>Custom Values</h5>
 							<form class="form-inline">
 								<div class="form-group">
 									<label>Video res:</label>
@@ -83,10 +80,7 @@
 								</div>
 							</form>
 							<input type="button" value="OK" onclick="set_res();" class="btn btn-warning">
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-body">
+							<hr>
 							<form class="form-inline">
 								<div class="form-group">
 									<label>Timelapse-Interval (0.1...3200)</label>
@@ -103,14 +97,18 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Annotation (max 127 characters)</div>
+				<div class="panel-body">
+					Text: <?php makeInput('annotation', 20); ?><input type="button" value="OK" onclick="send_cmd('an ' + encodeURI(document.getElementById('annotation').value))"><input type="button" value="Default" onclick="document.getElementById('annotation').value = 'RPi Cam %Y.%M.%D_%h:%m:%s'; send_cmd('an ' + encodeURI(document.getElementById('annotation').value))"><br>
+					Background: ><select onchange="send_cmd('ab ' + this.value)"><?php makeOptions($options_ab, 'anno_background'); ?></select>
+					Annotation size(0-99): <?php makeInput('anno_text_size', 3); ?><input type="button" value="OK" onclick="send_cmd('as ' + document.getElementById('anno_text_size').value)">
+					Custom text color: <select id="at_en"><?php makeOptions($options_at_en, 'anno3_custom_text_colour'); ?></select> y:u:v = <?php makeInput('at_y', 3, 'anno3_custom_text_Y'); ?>:<?php makeInput('at_u', 4, 'anno3_custom_text_U'); ?>:<?php makeInput('at_v', 4, 'anno3_custom_text_V'); ?> <input type="button" value="OK" onclick="set_at();">
+					Custom background color: <select id="ac_en"><?php makeOptions($options_ac_en, 'anno3_custom_background_colour'); ?></select> y:u:v = <?php makeInput('ac_y', 3, 'anno3_custom_background_Y'); ?>:<?php makeInput('ac_u', 4, 'anno3_custom_background_U'); ?>:<?php makeInput('ac_v', 4, 'anno3_custom_background_V'); ?> <input type="button" value="OK" onclick="set_ac();">
+				</div>
+			</div>
+
 			<table class="settingsTable table">
-				<tr>
-					<td>Annotation (max 127 characters):</td>
-					<td>
-						Text: <?php makeInput('annotation', 20); ?><input type="button" value="OK" onclick="send_cmd('an ' + encodeURI(document.getElementById('annotation').value))"><input type="button" value="Default" onclick="document.getElementById('annotation').value = 'RPi Cam %Y.%M.%D_%h:%m:%s'; send_cmd('an ' + encodeURI(document.getElementById('annotation').value))"><br>
-						Background: ><select onchange="send_cmd('ab ' + this.value)"><?php makeOptions($options_ab, 'anno_background'); ?></select>
-					</td>
-				</tr>
 				<?php if (file_exists("pilight_on")) pilight_controls(); ?>
 				<tr>
 					<td>Buffer (1000... ms), default 0:</td>
@@ -224,26 +222,6 @@
 					<td>MP4 Boxing mode :</td>
 					<td><select onchange="send_cmd('bo ' + this.value)"><?php makeOptions($options_bo, 'MP4Box'); ?></select></td>
 				</tr>
-				<tr>
-					<td>Annotation size(0-99):</td>
-					<td>
-						<?php makeInput('anno_text_size', 3); ?><input type="button" value="OK" onclick="send_cmd('as ' + document.getElementById('anno_text_size').value)">
-					</td>
-				</tr>
-				<tr>
-					<td>Custom text color:</td>
-					<td><select id="at_en"><?php makeOptions($options_at_en, 'anno3_custom_text_colour'); ?></select>
-						y:u:v = <?php makeInput('at_y', 3, 'anno3_custom_text_Y'); ?>:<?php makeInput('at_u', 4, 'anno3_custom_text_U'); ?>:<?php makeInput('at_v', 4, 'anno3_custom_text_V'); ?>
-						<input type="button" value="OK" onclick="set_at();">
-					</td>
-				</tr>
-				<tr>
-					<td>Custom background color:</td>
-					<td><select id="ac_en"><?php makeOptions($options_ac_en, 'anno3_custom_background_colour'); ?></select>
-						y:u:v = <?php makeInput('ac_y', 3, 'anno3_custom_background_Y'); ?>:<?php makeInput('ac_u', 4, 'anno3_custom_background_U'); ?>:<?php makeInput('ac_v', 4, 'anno3_custom_background_V'); ?>
-						<input type="button" value="OK" onclick="set_ac();">
-					</td>
-					</tr>
 				<tr>
 					<td>Watchdog, default interval 3s, errors 3</td>
 					<td>Interval <?php makeInput('watchdog_interval', 3); ?>s&nbsp;&nbsp;&nbsp;&nbsp;Errors <?php makeInput('watchdog_errors', 3); ?>
