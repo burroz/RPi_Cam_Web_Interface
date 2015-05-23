@@ -7,20 +7,19 @@
 			<div class="row">
 				<form class="form-inline">
 					<div class="form-group">
-						<button id="video_button" type="button" class="btn btn-default">ASD</button>
-						<!--<input id="video_button" type="button" class="btn btn-default">-->
+						<button id="video_button" type="button" class="btn btn-default">Video start/end</button>
 					</div>
 					<div class="form-group">
-						<input id="image_button" type="button" class="btn btn-default">
+						<button id="image_button" type="button" class="btn btn-default">Image</button>
 					</div>
 					<div class="form-group">
-						<input id="timelapse_button" type="button" class="btn btn-default">
+						<button id="timelapse_button" type="button" class="btn btn-default">TL</button>
 					</div>
 					<div class="form-group">
-						<input id="md_button" type="button" class="btn btn-default">
+						<button id="md_button" type="button" class="btn btn-default">MD</button>
 					</div>
 					<div class="form-group">
-						<input id="halt_button" type="button" class="btn btn-warning">
+						<button id="halt_button" type="button" class="btn btn-warning">CAM Stop</button>
 					</div>
 				</form>
 			</div>
