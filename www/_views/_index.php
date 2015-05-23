@@ -7,7 +7,8 @@
 			<div class="row">
 				<form class="form-inline">
 					<div class="form-group">
-						<input id="video_button" type="button" class="btn btn-default">
+						<button id="video_button" type="button" class="btn btn-default">ASD</button>
+						<!--<input id="video_button" type="button" class="btn btn-default">-->
 					</div>
 					<div class="form-group">
 						<input id="image_button" type="button" class="btn btn-default">
