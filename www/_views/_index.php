@@ -32,7 +32,7 @@
 					<hr>
 					<h5>Custom Values</h5>
 					<form class="form-inline">
-						<div class="Acol-sm-12">
+						<div>
 							<div class="form-group">
 								<label>Video res:</label>
 								<?php makeInput('video_width', 4); ?>
@@ -41,7 +41,7 @@
 								<label>px</label>
 							</div>
 						</div>
-						<div class="Acol-sm-12">
+						<div>
 							<div class="form-group">
 								<label>Video fps:</label>
 								<?php makeInput('video_fps', 2); ?>
@@ -50,21 +50,17 @@
 								<label>boxing</label>
 							</div>
 						</div>
-					</form>
-					<form class="form-inline">
-						<div class="form-group">
-							<label>Image res:</label>
-							<?php makeInput('image_width', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>x</label>
-							<?php makeInput('image_height', 4); ?>
-						</div>
-						<div class="form-group">
-							<label>px</label>
+						<div>
+							<div class="form-group">
+								<label>Image res:</label>
+								<?php makeInput('image_width', 4); ?>
+								<label>x</label>
+								<?php makeInput('image_height', 4); ?>
+								<label>px</label>
+								<input type="button" value="OK" onclick="set_res();" class="btn btn-warning">
+							</div>
 						</div>
 					</form>
-					<input type="button" value="OK" onclick="set_res();" class="btn btn-warning">
 					<hr>
 					<form class="form-inline">
 						<div class="form-group">
