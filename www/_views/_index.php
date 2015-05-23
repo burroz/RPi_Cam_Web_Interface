@@ -76,16 +76,43 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">2. Annotation (max 127 characters)</div>
 				<div class="panel-body">
-					Text: <?php makeInput('annotation', 20); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('an ' + encodeURI(document.getElementById('annotation').value))">OK</button>
-					<input type="button" value="Default" onclick="document.getElementById('annotation').value = 'RPi Cam %Y.%M.%D_%h:%m:%s'; send_cmd('an ' + encodeURI(document.getElementById('annotation').value))"><br>
-					Background: ><select onchange="send_cmd('ab ' + this.value)"><?php makeOptions($options_ab, 'anno_background'); ?></select>
-					Annotation size(0-99): <?php makeInput('anno_text_size', 3); ?>
-					<button class="btn btn-primary btn-xs" onclick="send_cmd('as ' + document.getElementById('anno_text_size').value)">OK</button>
-					Custom text color: <select id="at_en"><?php makeOptions($options_at_en, 'anno3_custom_text_colour'); ?></select> y:u:v = <?php makeInput('at_y', 3, 'anno3_custom_text_Y'); ?>:<?php makeInput('at_u', 4, 'anno3_custom_text_U'); ?>:<?php makeInput('at_v', 4, 'anno3_custom_text_V'); ?>
-					<button class="btn btn-primary btn-xs" onclick="set_at();">OK</button>
-					Custom background color: <select id="ac_en"><?php makeOptions($options_ac_en, 'anno3_custom_background_colour'); ?></select> y:u:v = <?php makeInput('ac_y', 3, 'anno3_custom_background_Y'); ?>:<?php makeInput('ac_u', 4, 'anno3_custom_background_U'); ?>:<?php makeInput('ac_v', 4, 'anno3_custom_background_V'); ?>
-					<button class="btn btn-primary btn-xs" onclick="set_ac();">OK</button>
+					<form class="form-inline">
+						<div>
+							<div class="form-group">
+								<label>Text:</label>
+								<?php makeInput('annotation', 20); ?>
+								<button class="btn btn-primary btn-xs" onclick="send_cmd('an ' + encodeURI(document.getElementById('annotation').value))">OK</button>
+								<input type="button" value="Default" onclick="document.getElementById('annotation').value = 'RPi Cam %Y.%M.%D_%h:%m:%s'; send_cmd('an ' + encodeURI(document.getElementById('annotation').value))">
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Background:</label>
+								<select onchange="send_cmd('ab ' + this.value)"><?php makeOptions($options_ab, 'anno_background'); ?></select>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Annotation size (0-99):</label>
+								<?php makeInput('anno_text_size', 3); ?>
+								<button class="btn btn-primary btn-xs" onclick="send_cmd('as ' + document.getElementById('anno_text_size').value)">OK</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Custom text color:</label>
+								<select id="at_en"><?php makeOptions($options_at_en, 'anno3_custom_text_colour'); ?></select> y:u:v = <?php makeInput('at_y', 3, 'anno3_custom_text_Y'); ?>:<?php makeInput('at_u', 4, 'anno3_custom_text_U'); ?>:<?php makeInput('at_v', 4, 'anno3_custom_text_V'); ?>
+								<button class="btn btn-primary btn-xs" onclick="set_at();">OK</button>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label>Custom background color:</label>
+								<select id="ac_en"><?php makeOptions($options_ac_en, 'anno3_custom_background_colour'); ?></select> y:u:v = <?php makeInput('ac_y', 3, 'anno3_custom_background_Y'); ?>:<?php makeInput('ac_u', 4, 'anno3_custom_background_U'); ?>:<?php makeInput('ac_v', 4, 'anno3_custom_background_V'); ?>
+								<button class="btn btn-primary btn-xs" onclick="set_ac();">OK</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		
