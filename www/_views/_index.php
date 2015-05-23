@@ -31,19 +31,25 @@
 					</div>
 					<hr>
 					<h5>Custom Values</h5>
-					<form class="form-inline">
-						<div class="form-group">
+					<!--<form class="form-inline">-->
+					<div class="form-group">
+						<div class="col-sm-3">
 							<label>Video res:</label>
+						</div>
+						<div class="col-sm-2">
 							<?php makeInput('video_width', 4); ?>
 						</div>
-						<div class="form-group">
+						<div class="col-sm-1">
 							<label>x</label>
+						</div>
+						<div class="col-sm-2">
 							<?php makeInput('video_height', 4); ?>
 						</div>
-						<div class="form-group">
+						<div class="col-sm-1">
 							<label>px</label>
 						</div>
-					</form>
+					</div>
+					<!--</form>-->
 					<form class="form-inline">
 						<div class="form-group">
 							<label>Video fps:</label>
