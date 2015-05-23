@@ -11,7 +11,7 @@
 
 	# others
 
-	function makeInput($id, $size, $selKey='') {
+	function makeInput($id, $size, $selKey='', $css='') {
 		global $config, $debugString;
 		if ($selKey == '') $selKey = $id;
 		switch ($selKey) {
@@ -31,7 +31,7 @@
 				break;
 			default: $value = $config[$selKey]; break;
 		}
-		echo "<input type='text' size=$size id='$id' value='$value'>";
+		echo "<input type='text' class='$css' size=$size id='$id' value='$value'>";
 	}
 	
 	function makeOptions($options, $selKey) {

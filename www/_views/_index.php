@@ -38,7 +38,19 @@
 					</div>
 					<h5>Custom Values</h5>
 					<div class="form-group">
-						Video res: <?php makeInput('video_width', 4); ?>x<?php makeInput('video_height', 4); ?>px<br>
+						<form class="form-inline">
+							<div class="form-group">
+								<label>Video res:</label>
+								<?php makeInput('video_width', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>x</label>
+								<?php makeInput('video_height', 4); ?>
+							</div>
+							<div class="form-group">
+								<label>px</label>
+							</div>
+						</form>
 						Video fps: <?php makeInput('video_fps', 2); ?>recording, <?php makeInput('MP4Box_fps', 2); ?>boxing<br>
 						Image res: <?php makeInput('image_width', 4); ?>x<?php makeInput('image_height', 4); ?>px<br>
 						<input type="button" value="OK" onclick="set_res();">
