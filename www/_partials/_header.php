@@ -26,7 +26,17 @@
 	  <link rel="stylesheet" href="css/style.css" />
 
 	</head>
-	<body onload="setTimeout('init(<?php echo "$mjpegmode, $video_fps, $divider" ?>);', 100);">
+	<?php
+		if (NAV_POS == "index") {
+	?>
+		<body onload="setTimeout('init(<?php echo "$mjpegmode, $video_fps, $divider" ?>);', 100);">
+	<?php
+		} else {
+	?>
+		<body>
+	<?php
+		}
+	?>
 
 	<?php include BASE_DIR . '/_partials/_navi.php'; ?>
 
