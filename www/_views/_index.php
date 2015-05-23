@@ -37,30 +37,53 @@
 						</select>
 					</div>
 					<h5>Custom Values</h5>
-					<div class="form-group">
-						<form class="form-inline">
-							<div class="form-group">
-								<label>Video res:</label>
-								<?php makeInput('video_width', 4); ?>
-							</div>
-							<div class="form-group">
-								<label>x</label>
-								<?php makeInput('video_height', 4); ?>
-							</div>
-							<div class="form-group">
-								<label>px</label>
-							</div>
-						</form>
-						Video fps: <?php makeInput('video_fps', 2); ?>recording, <?php makeInput('MP4Box_fps', 2); ?>boxing<br>
-						Image res: <?php makeInput('image_width', 4); ?>x<?php makeInput('image_height', 4); ?>px<br>
-						<input type="button" value="OK" onclick="set_res();">
-					</div>
-					<h5>Custom Values</h5>
-					<div class="form-group">
-						<label>Timelapse-Interval (0.1...3200)</label>
-						<?php makeInput('tl_interval', 4); ?>s
-						<input type="button" value="OK" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">
-					</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<label>Video res:</label>
+							<?php makeInput('video_width', 4); ?>
+						</div>
+						<div class="form-group">
+							<label>x</label>
+							<?php makeInput('video_height', 4); ?>
+						</div>
+						<div class="form-group">
+							<label>px</label>
+						</div>
+					</form>
+					<form class="form-inline">
+						<div class="form-group">
+							<label>Video fps:</label>
+							<?php makeInput('video_fps', 2); ?>
+						</div>
+						<div class="form-group">
+							<label>recording,</label>
+							<?php makeInput('MP4Box_fps', 4); ?>
+						</div>
+						<div class="form-group">
+							<label>boxing</label>
+						</div>
+					</form>
+					<form class="form-inline">
+						<div class="form-group">
+							<label>Image res:</label>
+							<?php makeInput('image_width', 4); ?>
+						</div>
+						<div class="form-group">
+							<label>x</label>
+							<?php makeInput('image_height', 4); ?>
+						</div>
+						<div class="form-group">
+							<label>px</label>
+						</div>
+					</form>
+					<input type="button" value="OK" onclick="set_res();" class="btn btn-warning">
+					<form class="form-inline">
+						<div class="form-group">
+							<label>Timelapse-Interval (0.1...3200)</label>
+							<?php makeInput('tl_interval', 4); ?>s
+							<input type="button" value="OK" onclick="send_cmd('tv ' + 10 * document.getElementById('tl_interval').value)">
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
