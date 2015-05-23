@@ -15,7 +15,7 @@
 	</div>
 	<div class="row">
 	
-		<div class="col-md-4">
+		
 			<div class="panel panel-default">
 				<div class="panel-heading">1. Resolution</div>
 				<div class="panel-body">
@@ -72,9 +72,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
 		
-		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">2. Annotation (max 127 characters)</div>
 				<div class="panel-body">
@@ -90,13 +88,9 @@
 					<button class="btn btn-primary btn-xs" onclick="set_ac();">OK</button>
 				</div>
 			</div>
-		</div>
 		
-		<div class="col-md-4">
 			<?php if (file_exists("pilight_on")) pilight_controls(); ?>
-		</div>
 		
-		<div class="col-md-4">
 			<div class="panel panel-default">	
 				<div class="panel-heading">3. Light and Image</div>
 				<div class="panel-body">
@@ -115,9 +109,7 @@
 					Metering Mode, default 'average': <select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select>
 				</div>
 			</div>
-		</div>
 		
-		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">4. Image orientation</div>
 				<div class="panel-body">
@@ -129,9 +121,7 @@
 					<select onchange="send_cmd('fl ' + this.value)"><?php makeOptions($options_fl, 'flip'); ?></select>
 				</div>
 			</div>
-		</div>
 		
-		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">5. Exposure</div>
 				<div class="panel-body">
@@ -155,9 +145,7 @@
 					<button class="btn btn-primary btn-xs" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)">OK</button>
 				</div>
 			</div>
-		</div>
 		
-		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">6. Others</div>
 				<div class="panel-body">
@@ -174,7 +162,7 @@
 					<button class="btn btn-primary btn-xs" onclick="send_cmd('wd ' + 10 * document.getElementById('watchdog_interval').value + ' ' + document.getElementById('watchdog_errors').value)">OK</button>
 				</div>
 			</div>
-		</div>
+		
 
 	</div>
 </div>
