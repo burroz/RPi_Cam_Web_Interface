@@ -42,7 +42,7 @@ function send_cmd_temporaer() {
 				<li class="dropdown <?php echo ( (NAV_POS == "motion" || NAV_POS == "schedule") ? 'active' : '' ); ?>">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li class="<? if (NAV_POS == "motion") { echo "active"; } ?>"><a href="motion">Motion Settings</a></li>
+						<li class="<? if (NAV_POS == "motion") { echo "active"; } ?>"><a href="motion.php">Motion Settings</a></li>
 						<li class="<? if (NAV_POS == "schedule") { echo "active"; } ?>"><a href="schedule.php">Schedule Settings</a></li>
 					</ul>
 				</li>

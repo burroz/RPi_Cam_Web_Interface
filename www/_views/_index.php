@@ -12,10 +12,8 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6">
-		</div>
-		<div class="col-md-6">
-			<table class="settingsTable">
+		<div class="col-md-4">
+			<table class="settingsTable table">
 				<tr>
 					<td>Resolutions:</td>
 					<td>
@@ -75,6 +73,10 @@
 					<td>Metering Mode, default 'average':</td>
 					<td><select onchange="send_cmd('mm ' + this.value)"><?php makeOptions($options_mm, 'metering_mode'); ?></select></td>
 				</tr>
+			</table>
+		</div>
+		<div class="col-md-4">
+			<table class="settingsTable table">
 				<tr>
 					<td>Video Stabilisation, default: 'off'</td>
 					<td><select onchange="send_cmd('vs ' + this.value)"><?php makeOptions($options_vs, 'video_stabilisation'); ?></select></td>
@@ -121,6 +123,10 @@
 					<td><?php makeInput('shutter_speed', 4); ?><input type="button" value="OK" onclick="send_cmd('ss ' + document.getElementById('shutter_speed').value)">
 					</td>
 				</tr>
+			</table>
+		</div>
+		<div class="col-md-4">
+			<table class="settingsTable table">
 				<tr>
 					<td>Image quality (0...100), default 85:</td>
 					<td>
