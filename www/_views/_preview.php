@@ -113,13 +113,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<?php
-				#if (count($thumbnails) == 0) {
-				#	echo "<p>No videos/images saved</p>";
-				#} else {
-				#	#foreach($thumbnails as $file) {
-				#	#	drawFile($file, $thumbSize, $dSelect);
-				#	#}
-				#}
 				if ($imagesAvailable) {
 					foreach($thumbnails as $file) {
 

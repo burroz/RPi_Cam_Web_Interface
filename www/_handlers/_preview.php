@@ -158,7 +158,7 @@
 
    # ---------------- funcs
 
-   function drawFile($f, $ts, $sel) {
+   function ZZZ_drawFile($f, $ts, $sel) {
 		
 		$fType = getFileType($f);
 		$rFile = dataFilename($f);

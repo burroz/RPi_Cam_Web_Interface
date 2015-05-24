@@ -188,10 +188,12 @@
 
 		$returnMe = '';
 		$showCero = false;
+		$unit2use = '';
 		
 		if ($days > 0) {
 			$returnMe .= $days . 'd';
 			$showCero = true;
+			$unit2use = 'd';
 		}
 		if ($hours > 0 || $showCero) {
 			if ($hours < 10) {
@@ -199,6 +201,7 @@
 			} else {
 				$returnMe .= $hours . ':';
 			}
+			if (!$showCero) { $unit2use = 'h'; }
 			$showCero = true;
 		}
 		if ($minutes > 0 || $showCero) {
@@ -207,6 +210,7 @@
 			} else {
 				$returnMe .= $minutes . ':';
 			}
+			if (!$showCero) { $unit2use = 'm'; }
 			$showCero = true;
 		}
 		if ($seconds > 0 || $showCero) {
@@ -215,8 +219,10 @@
 			} else {
 				$returnMe .= $seconds . '';				
 			}
+			if (!$showCero) { $unit2use = 's'; }
 			$showCero = true;
 		}
+		
 		return $returnMe;
 
 
