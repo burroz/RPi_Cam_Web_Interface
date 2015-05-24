@@ -223,7 +223,7 @@
 			$showCero = true;
 		}
 		
-		return $returnMe;
+		return $returnMe . " " . $unit2use;
 
 
 		#echo "{$days} days {$hours} hours {$minutes} minutes {$seconds} seconds";
