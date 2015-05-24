@@ -50,7 +50,7 @@
 			<p>
 				<div class="progress">
 					<div class="progress-bar progress-bar-primary progress-bar-striped" style="width:<?php echo round($diskUsage['usedPercent']); ?>%;">
-						<?php  echo $usedLabel; ?>
+						<?php echo (round($diskUsage['usedPercent']) > 5) ? $usedLabel : ''; ?>
 					</div>
 					<div class="progress-bar progress-bar-<?php echo $useColor; ?> progress-bar-striped" style="width:<?php echo round($diskUsage['currentAvailablePercent']); ?>%;">
 						<?php  echo $freeLabel; ?>
