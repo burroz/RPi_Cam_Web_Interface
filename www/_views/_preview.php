@@ -157,59 +157,61 @@
 							default : $grid = 'col-sm-6 col-md-3'; break;
 						}
 
-						echo '<div class="panel panel-default ' . $grid .' ">';
-							echo '<div class="panel-heading">';
-								echo '<h3 class="media-heading">' . $fIcon . ' ' . $fNumber . '</h3>';
-							echo '</div>';
-							echo '<div class="panel-body">';
-								echo '<div class="media">';
-									echo '<div class="media-left">';
-										#echo '<a href="#">';
-											echo '<img class="media-object" src="' .  MEDIA_PATH . '/' . $file . '" style="height:75px;">';
-										#echo '</a>';
-									echo '</div>';
-									echo '<div class="media-body">';
-										
-										echo '<h5><small><i class="fa fa-calendar-o "></i> ' . $fDate . ' <i class="fa fa-clock-o"></i> ' . $fTime . '</small></h5>';
-										if ($fsz > 0) {
-											$doBRs = 0;
+						echo '<div class="' . $grid . '">';
+							echo '<div class="panel panel-default">';
+								echo '<div class="panel-heading">';
+									echo '<h3 class="media-heading">' . $fIcon . ' ' . $fNumber . '</h3>';
+								echo '</div>';
+								echo '<div class="panel-body">';
+									echo '<div class="media">';
+										echo '<div class="media-left">';
+											#echo '<a href="#">';
+												echo '<img class="media-object" src="' .  MEDIA_PATH . '/' . $file . '" style="height:75px;">';
+											#echo '</a>';
+										echo '</div>';
+										echo '<div class="media-body">';
+											
+											echo '<h5><small><i class="fa fa-calendar-o "></i> ' . $fDate . ' <i class="fa fa-clock-o"></i> ' . $fTime . '</small></h5>';
 											if ($fsz > 0) {
-												echo '<i class="fa fa-floppy-o"></i> ' . FileSizeConvert($fsz) . '<br>';
+												$doBRs = 0;
+												if ($fsz > 0) {
+													echo '<i class="fa fa-floppy-o"></i> ' . FileSizeConvert($fsz) . '<br>';
+												} else {
+													$doBRs++;
+												}			
+												if (strlen($lapseCount) > 0) {
+													echo '<i class="fa fa-picture-o"></i> ' . $lapseCount . '<br>';	
+												} else {
+													$doBRs++;
+												}
+												if (strlen($duration) > 0) {
+													echo '<i class="fa fa-clock-o"></i> ' . secondsToTime($duration) . '<br>';
+												} else {
+													$doBRs++;
+												}
+												for ($i = 0; $i < $doBRs; $i++) {
+													echo '<br>';
+												}
 											} else {
-												$doBRs++;
-											}			
-											if (strlen($lapseCount) > 0) {
-												echo '<i class="fa fa-picture-o"></i> ' . $lapseCount . '<br>';	
-											} else {
-												$doBRs++;
+												echo '<i class="fa fa-square-o"></i> Busy<br><br><br>';
 											}
-											if (strlen($duration) > 0) {
-												echo '<i class="fa fa-clock-o"></i> ' . secondsToTime($duration) . '<br>';
-											} else {
-												$doBRs++;
-											}
-											for ($i = 0; $i < $doBRs; $i++) {
-												echo '<br>';
-											}
-										} else {
-											echo '<i class="fa fa-square-o"></i> Busy<br><br><br>';
-										}
-										#echo '<p>';
-										#	echo '<a href="preview.php?preview=' . $file . '" name="delete1" class="btn btn-default btn-xs" role="button"' . ((!($fsz > 0)) ? ' disabled="disabled"' : '') . '><i class="fa fa-eye"></i> View</a>';
-										#	echo ' ';
-										#	echo '<button type="submit" name="delete1" value="' . $file . '" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o"></i> Delete</button>';
-										#	echo ' ';
-										#	echo '<input type="checkbox" name="check_list[]" ' . $dSelect . 'value="' . $file . '" style="float:right;">';
-										#echo '</p>';
+											#echo '<p>';
+											#	echo '<a href="preview.php?preview=' . $file . '" name="delete1" class="btn btn-default btn-xs" role="button"' . ((!($fsz > 0)) ? ' disabled="disabled"' : '') . '><i class="fa fa-eye"></i> View</a>';
+											#	echo ' ';
+											#	echo '<button type="submit" name="delete1" value="' . $file . '" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o"></i> Delete</button>';
+											#	echo ' ';
+											#	echo '<input type="checkbox" name="check_list[]" ' . $dSelect . 'value="' . $file . '" style="float:right;">';
+											#echo '</p>';
+										echo '</div>';
 									echo '</div>';
 								echo '</div>';
-							echo '</div>';
-							echo '<div class="panel-footer">';
-								echo '<a href="preview.php?preview=' . $file . '" name="delete1" class="btn btn-default btn-xs" role="button"' . ((!($fsz > 0)) ? ' disabled="disabled"' : '') . '><i class="fa fa-eye"></i> View</a>';
-								echo ' ';
-								echo '<button type="submit" name="delete1" value="' . $file . '" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o"></i> Delete</button>';
-								echo ' ';
-								echo '<input type="checkbox" name="check_list[]" ' . $dSelect . 'value="' . $file . '" style="float:right;">';
+								echo '<div class="panel-footer">';
+									echo '<a href="preview.php?preview=' . $file . '" name="delete1" class="btn btn-default btn-xs" role="button"' . ((!($fsz > 0)) ? ' disabled="disabled"' : '') . '><i class="fa fa-eye"></i> View</a>';
+									echo ' ';
+									echo '<button type="submit" name="delete1" value="' . $file . '" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o"></i> Delete</button>';
+									echo ' ';
+									echo '<input type="checkbox" name="check_list[]" ' . $dSelect . 'value="' . $file . '" style="float:right;">';
+								echo '</div>';
 							echo '</div>';
 						echo '</div>';
 
