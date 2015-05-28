@@ -124,7 +124,7 @@
 						switch ($fType) {
 							case 'v': $fIcon = '<i class="fa fa-video-camera"></i>'; break;
 							case 't': 
-								$fIcon = '<span class="fa-stack"><i class="fa fa-video-camera"></i><i class="fa fa-angle-double-right text-danger"></i></span>';
+								$fIcon = '<span class="fa-stack"><i class="fa fa-video-camera fa-stack-1x"></i><i class="fa fa-angle-double-right text-danger fa-stack-1x"></i></span>';
 								$lapseCount = '(' . count(findLapseFiles($file)). ')';
 								break;
 							case 'i': $fIcon = '<i class="fa fa-camera"></i>'; break;
