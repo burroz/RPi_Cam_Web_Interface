@@ -164,7 +164,7 @@
 						echo '<div class="' . $grid . '">';
 							echo '<div class="panel panel-default">';
 								echo '<div class="panel-heading">';
-									echo '<h3 class="media-heading">' . $fIcon . ' ' . $fNumber . '</h3>';
+									echo '<h5 class="media-heading">' . $fIcon . ' ' . $fNumber . '</h5>';
 								echo '</div>';
 								echo '<div class="panel-body">';
 									echo '<div class="media">';
