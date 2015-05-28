@@ -117,6 +117,9 @@
    
    function getThumbnails() {
       $files = scandir(MEDIA_PATH);
+
+      echo var_dump($files);
+      
       $thumbnails = array();
       foreach($files as $file) {
          if($file != '.' && $file != '..' && isThumbnail($file)) {
@@ -125,6 +128,15 @@
       }
       return $thumbnails;   
    }
+   
+   /*
+    * $type.hint Can be 'video', 'images'
+    */
+   function getFilesFromDirectory($type='video') {
+   	
+   }
+   
+   
    
    function diskUsage() {
       $returnMe = ['total'=>0,'currentAvailable'=>0,'used'=>0,'usedPercent'=>0,'currentAvailablePercent'=>0];
