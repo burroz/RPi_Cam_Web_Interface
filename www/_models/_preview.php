@@ -118,7 +118,7 @@
    function getThumbnails() {
       $files = scandir(MEDIA_PATH);
 
-      echo var_dump($files);
+      #echo var_dump($files);
       
       $thumbnails = array();
       foreach($files as $file) {

@@ -158,9 +158,9 @@
 						}
 
 						echo '<div class="media">';
-							echo '<div class="media-left media-middle">';
+							echo '<div class="media-left">';
 								#echo '<a href="#">';
-									echo '<img class="media-object" src="' .  MEDIA_PATH . '/' . $file . '">';
+									echo '<img class="media-object" src="' .  MEDIA_PATH . '/' . $file . '" style="height:75px;">';
 								#echo '</a>';
 							echo '</div>';
 							echo '<div class="media-body">';
