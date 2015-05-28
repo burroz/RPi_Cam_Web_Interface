@@ -122,13 +122,13 @@
 						$lapseCount = "";
 
 						switch ($fType) {
-							case 'v': $fIcon = '<span class="fa-stack"><i class="fa fa-video-camera fa-stack-1x"></i></span>'; break;
+							case 'v': $fIcon = '<i class="fa fa-video-camera"></i>'; break;
 							case 't': 
-								$fIcon = '<span class="fa-stack"><i class="fa fa-video-camera fa-stack-1x"></i><i class="fa fa-angle-double-right fa-stack-1x text-danger"></i></span>';
+								$fIcon = '<span class="fa-stack"><i class="fa fa-video-camera"></i><i class="fa fa-angle-double-right text-danger"></i></span>';
 								$lapseCount = '(' . count(findLapseFiles($file)). ')';
 								break;
-							case 'i': $fIcon = '<span class="fa-stack"><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
-							default : $fIcon = '<span class="fa-stack"><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
+							case 'i': $fIcon = '<i class="fa fa-camera"></i>'; break;
+							default : $fIcon = '<i class="fa fa-camera"></i>'; break;
 						}
 
 						$duration ='';
