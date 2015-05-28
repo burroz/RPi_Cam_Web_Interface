@@ -122,13 +122,17 @@
 						$lapseCount = "";
 
 						switch ($fType) {
-							case 'v': $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x"></i></span>'; break;
-							case 't': 
-								$fIcon = '<span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x fa-inverse"></i></span>';
-								$lapseCount = '(' . count(findLapseFiles($file)). ')';
-								break;
-							case 'i': $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
-							default : $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
+							#case 'v': $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x"></i></span>'; break;
+							#case 't': 
+							#	$fIcon = '<span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x fa-inverse"></i></span>';
+							#	$lapseCount = '(' . count(findLapseFiles($file)). ')';
+							#	break;
+							#case 'i': $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
+							#default : $fIcon = '<span class="fa-stack"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x"></i></span>'; break;
+							case 'v': $fIcon = '(v)'; break;
+							case 't': $fIcon = '(t)'; break;
+							case 'i': $fIcon = '(i)'; break;
+							default: $fIcon = '(i)'; break;
 						}
 
 						$duration ='';
